@@ -287,35 +287,4 @@ public class MemberDAO {
 		}
 		return dto;
 	}
-	
-	//회원 정보 조회하기(closet_num만 가져오기)
-	public int getCloset_numById(String id) {
-		int closet_num = 0;
-		try {
-			conn = ds.getConnection();
-			String sql = "select closet_num from member where id=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				closet_num = rs.getInt("closet_num");
-			}
-		} catch (SQLException e) {
-			System.out.println("getMemberInfoForCs Error");
-			e.printStackTrace();
-		} finally {
-			try {
-				rs.close();
-				pstmt.close();
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return closet_num;
-	}
-	
-
 }

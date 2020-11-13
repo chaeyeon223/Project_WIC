@@ -73,13 +73,13 @@
 				<!-- Right -->
 				<div class="col-md-8 mx-auto my-4" id="autoScroll">
 					<div class="tabmenu">
-						<div class="">
+						<div class="btnWrapper">
 							<input id="tab1" type="radio" name="tabs" checked>
 							<label for="tab1">판매목록</label>
 							<input id="tab2" type="radio" name="tabs">
 							<label class="mrAuto" for="tab2">찜목록</label>
+							<button class="btn" onclick="location.href='<%=request.getContextPath()%>/ProductUploadPage.Pd'">상품등록</button>
 						</div>
-						<button class="btn" onclick="location.href='<%=request.getContextPath()%>/ProductUploadPage.Pd'">상품등록</button>
 					</div>
 					
 					
@@ -90,8 +90,10 @@
 								<a href="<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}">
 									<img src="upload/${product.files.files_name}">
 								</a>
-								<div class="overlay"> 
-									<p> Like </p>
+								<div class="overlay">
+									<span><i class="fas fa-heart"></i>&nbsp;30</span>
+									&nbsp;&nbsp;&nbsp;
+									<span><i class="fas fa-comment"></i>&nbsp;5</span>
 								</div>
 							</div>
 						</c:forEach>
@@ -118,7 +120,7 @@
 							</a>
 							<div class="overlay">
 								<p> Like </p>
-							</div>
+							</div> 
 						</div>
 						<div class="inner-grid">
 							<a href="#">
