@@ -317,36 +317,5 @@ public class MemberDAO {
 		return closet_num;
 	}
 	
-	//회원 정보 조회(byId)
-	public MemberDTO getMemberById(String id){
-		MemberDTO member = new MemberDTO();
-		
-		try {
-			conn = ds.getConnection();
-			
-			String sql = "select id, pwd, name, addr, profile_pic, closet_num from member where id=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				member.setName("name");
-				member.setPwd(rs.getNString("pwd"));
-				member.setAddr(rs.getString("addr"));
-				member.setProfile_pic(rs.getString("profile_pic"));
-				member.setCloset_num(rs.getInt("closet_num"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				rs.close();
-				pstmt.close();
-				conn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return member;
-	}
+
 }
