@@ -34,6 +34,7 @@
 	<c:set var="productList" value="${requestScope.productList}"/>
 	<c:set var="fileList" value="${requestScope.fileList}"/>
 	<c:set var="checkLike" value="${requestScope.checkLike}"></c:set>
+	<c:set var="likeList" value="${requestScope.likeList}"></c:set>
 	<c:set var="id" value="${sessionScope.id}"></c:set>
 	
 	<jsp:include page="/WEB-INF/views/common/Top.jsp"></jsp:include>
@@ -120,21 +121,22 @@
 						</div>
 					</div>
 					
-					
 					<!-- 판매 상품 목록 -->
 					<div class="outer-grid">
-						<c:forEach var="product" items="${productList}">
+					
+						<c:forEach var="i" begin="0" end="${fn:length(productList)}">
 							<div class="inner-grid">
-								<a href="<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}">
-									<img src="upload/${product.files.files_name}">
+								<a href="<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product[i].prd_num}">
+									<img src="upload/${productList[i].files.files_name}">
 								</a>
 								<div class="overlay">
-									<span><i class="fas fa-heart"></i>&nbsp;30</span>
+									<span><i class="fas fa-heart"></i>&nbsp;${likeList[i]}</span>
 									&nbsp;&nbsp;&nbsp;
 									<span><i class="fas fa-comment"></i>&nbsp;5</span>
 								</div>
 							</div>
 						</c:forEach>
+						
 					</div>
 				</div>
 			</div>

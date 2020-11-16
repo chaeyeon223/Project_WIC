@@ -67,7 +67,18 @@
                   	  
                       <fieldset class="p-4">
                           <div class="form-group">
-                              <div class="row">
+
+								<div class="row">
+									<div class="col-md-10"></div>
+									<div class="col-md-2">
+											<select name="cs_secret" class="form-control">
+												<option value="0" selected>공개글</option>
+												<option value="1">비밀글</option>
+											</select>
+									</div>
+
+								</div>
+								<div class="row">
                                   <div class="col-lg-6 pt-2">
                                     ID <input type="email" value="${memberDto.id}" class="form-control" readonly name="id">
                                   </div>

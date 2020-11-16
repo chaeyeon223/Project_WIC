@@ -1,5 +1,6 @@
 package kr.or.wic.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
+import kr.or.wic.dao.CartDAO;
 import kr.or.wic.dao.ClosetDAO;
 import kr.or.wic.dao.Like_RecordDAO;
 import kr.or.wic.dao.MemberDAO;
@@ -34,6 +36,8 @@ public class MyClosetPageAction implements Action {
 		member = mdao.getMemberById(id); //해당 회원의 모든 정보
 		System.out.println(member);
 		
+		
+		
 
 		//Like 받은 수
 		Like_RecordDAO ldao = new Like_RecordDAO();
@@ -52,13 +56,24 @@ public class MyClosetPageAction implements Action {
 		//product 객체 정보
 		ProductDAO pdao = new ProductDAO();
 		List<ProductDTO> productList = pdao.getEachMemberAllProductAndFileList(id);
-		
+
+		//likeList
+		List<Integer> likeList = new ArrayList<Integer>();
+		CartDAO cartdao = new CartDAO();
+		for(ProductDTO product : productList) {
+			likeList.add(cartdao.getLikeByPrdnum(product.getPrd_num()));
+		}
+
 		//file(file_name) 정보(모든 파일 리스트의 name 중 각 prd_num의 첫번째 파일)
+		
+		
 		request.setAttribute("member", member);
 		request.setAttribute("getLike", getLike);
 		request.setAttribute("closet", closet);
 		request.setAttribute("productList", productList);
-		
+		request.setAttribute("checkLike", checkLike);
+		request.setAttribute("likeList", likeList);
+		System.out.println(productList);
 		viewpage = "MyCloset.jsp";
 		forward.setPath(viewpage);
 		return forward;

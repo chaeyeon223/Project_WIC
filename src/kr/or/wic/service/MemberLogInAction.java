@@ -40,7 +40,8 @@ public class MemberLogInAction implements Action{
 		} else {
 			viewpage = "Main.jsp";
 			HttpSession session = request.getSession();
-			session.setAttribute("id", memberDto.getId());	
+			session.setAttribute("id", memberDto.getId());
+			memberDao.loginCount(memberDto.getId());
 			System.out.println("signed in");
 		}
 			

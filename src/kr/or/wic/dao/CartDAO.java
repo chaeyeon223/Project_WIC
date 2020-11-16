@@ -129,4 +129,37 @@ public class CartDAO {
 		return cartList;
 	
 	}
+	
+	//좋아요 개수 확인
+	public int getLikeByPrdnum(int prd_num) {
+		int prdLike = 0;
+		try {
+			conn = ds.getConnection();
+			
+			String sql = "select count(id)\n"
+					+ "from cart\n"
+					+ "group by prd_num\n"
+					+ "having prd_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, prd_num);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				prdLike = rs.getInt("count(id)");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return prdLike;
+	}
 }
