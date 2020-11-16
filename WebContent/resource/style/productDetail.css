@@ -4,12 +4,27 @@
 	margin-bottom: 20px;
 }
 
+#imgCarousel{
+	height: inherit;
+}
+
+.carousel-inner{
+	height: inherit;
+}
+
+.carousel-item{
+	height: inherit;
+}
+
 .rightDiv{
 	height: 470px;
 	overflow: auto;
-	
 }
 
+.leftDiv{
+	height: 470px;
+	overflow: auto;
+}
 .carousel-container{
 	width: 60%;
 	margin: auto;
@@ -17,7 +32,7 @@
 
 .carousel-slide{
 	display: flex;
-	}
+}
 
 
 .carousel-item > img{

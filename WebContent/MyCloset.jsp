@@ -32,6 +32,7 @@
 	<c:set var="getLike" value="${requestScope.getLike}"/>
 	<c:set var="closet" value="${requestScope.closet}"/>
 	<c:set var="productList" value="${requestScope.productList}"/>
+	<c:set var="cartProductList" value="${requestScope.cartProductList}"/>
 	<c:set var="fileList" value="${requestScope.fileList}"/>
 	<c:set var="checkLike" value="${requestScope.checkLike}"></c:set>
 	<c:set var="id" value="${sessionScope.id}"></c:set>
@@ -248,7 +249,7 @@ $(document).ready(function(){
 		if(e.target.id == 'tab1'){
 			$(".outer-grid").html('<c:forEach var="product" items="${productList}"><div class="inner-grid"><a href="<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${product.prd_num}"><img src="upload/${product.files.files_name}"></a><div class="overlay"><span><i class="fas fa-heart"></i>&nbsp;30</span>&nbsp;&nbsp;&nbsp;<span><i class="fas fa-comment"></i>&nbsp;5</span></div></div></c:forEach>');
 		} else {
-			$(".outer-grid").html('cart 리스트');
+			$(".outer-grid").html('<c:forEach var="cartProduct" items="${cartProductList}"><div class="inner-grid"><a href="<%=request.getContextPath()%>/ProductDetailPage.Pd?prd_num=${cartProduct.prd_num}"><img src="upload/${cartProduct.files.files_name}"></a><div class="overlay"><span><i class="fas fa-heart"></i>&nbsp;30</span>&nbsp;&nbsp;&nbsp;<span><i class="fas fa-comment"></i>&nbsp;5</span></div></div></c:forEach>');
 		}
 			
 	});

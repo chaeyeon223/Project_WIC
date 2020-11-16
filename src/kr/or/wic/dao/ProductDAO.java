@@ -550,7 +550,6 @@ public class ProductDAO {
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
 					result = rs.getInt(1);
-					System.out.println(result);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -566,4 +565,132 @@ public class ProductDAO {
 			}
 			return result; 
 		}
+		
+	//(최신)상품 정보 수정(update the information of product)
+	public int updateProduct(ProductDTO product) {
+		int row = 0;
+		
+		try {
+			conn = ds.getConnection(); //prd_title, prd_price, prd_date, prd_content, closet_num //prd_state, prd_count처리 필요
+			String sql = "update product set prd_title=? , prd_price=? , prd_date=sysdate, prd_content=?, prd_state=0 where prd_num=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, product.getPrd_title());
+			pstmt.setInt(2, product.getPrd_price());
+			pstmt.setString(3, product.getPrd_content());
+			pstmt.setInt(4, product.getPrd_num());
+			row = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
+	
+	//1-0-3. cart에서 찜한 상품 번호로 files의 대표사진 뽑기
+	private List<Integer> getPrdNumsInCartById(String id){
+		List<Integer> cartPicList = new ArrayList<Integer>();
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "select min(f.files_num) as num from cart c join files f ON c.prd_num = f.prd_num where c.id=? GROUP BY c.prd_num order by c.prd_num desc";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				cartPicList.add(rs.getInt("num"));
+				
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+			
+		return cartPicList;
+	}
+	
+	//1-1-3.상품정보 조회(개별 회원이 찜한 상품의 첫번째 사진 조회 >> 해당 사진의 정보 조회)
+	public List<ProductDTO> getEachMemberAllCartProductAndFileList(String id){
+		List<ProductDTO> cartProductList = new ArrayList<ProductDTO>();
+		List<Integer> cartPicList = getPrdNumsInCartById(id);
+		
+		try {
+			conn = ds.getConnection();
+			for(int i : cartPicList) {
+				String sql = "select p.prd_num, p.prd_title, p.prd_price, p.prd_date, p.prd_content, p.prd_state, p.prd_count, p.closet_num, f.files_name, f.files_path from product p join files f on p.prd_num = f.prd_num WHERE f.files_num=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, i);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					ProductDTO product = new ProductDTO();
+					FilesDTO file = new FilesDTO();
+					file.setFiles_name(rs.getString("files_name"));
+					file.setFiles_path(rs.getString("files_path"));
+					product.setFiles(file);
+					
+					product.setPrd_num(rs.getInt("prd_num"));
+					product.setPrd_title(rs.getString("prd_title"));
+					product.setPrd_price(rs.getInt("prd_price"));
+					product.setPrd_date(rs.getDate("prd_date"));
+					product.setPrd_content(rs.getString("prd_content"));
+					product.setPrd_state(rs.getInt("prd_state"));
+					product.setPrd_count(rs.getInt("prd_count"));
+					product.setCloset_num(rs.getInt("closet_num"));
+					
+					cartProductList.add(product);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return cartProductList;
+	}
+	
+	//prd_num으로 id 받아오기
+	public String getIdByPrdNum(int prd_num){
+		String id = "";
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "select m.id from product p, member m where p.closet_num = m.closet_num and p.prd_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, prd_num);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				id = rs.getString("id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return id;
+	}
 }

@@ -6,48 +6,45 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
 import kr.or.wic.dto.ProductDTO;
+import kr.or.wic.dao.FilesDAO;
 import kr.or.wic.dao.MemberDAO;
 import kr.or.wic.dao.ProductDAO;
 
 public class ProductEditAction implements Action{
-/*
- * 
- * 수정예정!!!!!
- * 
- */
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		response.setContentType("text/html;charset=UTF-8"); // 클라언트에게 전달한 페이지의 정보 구성
-		
-		String viewpage = "";
-		ActionForward forward = new ActionForward();
+		String productName = request.getParameter("productName");
+		int productPrice = Integer.parseInt(request.getParameter("productPrice"));
+		String context = request.getParameter("context");
 		String id = (String)request.getSession().getAttribute("id");
 		
-		/*
-		 * 본 service에서 해당 회원과 관리자만 접근이 가능하게 하는 기능을 여기서 구현할지 결정해야
-		if(id == null || !id.equals("admin")) {
-			viewpage = "/WEB-INF/LoginRegister/Login.jsp";
-			forward.setPath(viewpage);
-			return forward;
-		}
-		*/
-		
-		//DAO, DTO 처리
+		//prd_num
 		int prd_num = Integer.parseInt(request.getParameter("prd_num"));
 		
-		//product 정보
-		ProductDAO dao = new ProductDAO();
-		ProductDTO product = dao.getProduct(prd_num);
-		request.setAttribute("product", product);
-		
-		//member 정보
+		//closet_num
 		MemberDAO mdao = new MemberDAO();
+		int closet_num = mdao.getCloset_numById(id);
 		
-		//이동경로(viewpage)
-		viewpage = "ProductEditPage.jsp";
-		forward.setPath(viewpage);
+		//productDTO 객체에 정보 담기
+		ProductDTO pdto = new ProductDTO();
+		pdto.setPrd_num(prd_num);
+		pdto.setPrd_title(productName);
+		pdto.setPrd_price(productPrice);
+		pdto.setPrd_content(context);
+		pdto.setCloset_num(closet_num);
+		
+		//product 정보 수정(dao) //이름,가격,내용만
+		ProductDAO pdao = new ProductDAO();
+		pdao.updateProduct(pdto);
+		
+		//file 정보에 prd_num 입력
+		FilesDAO fdao = new FilesDAO();
+		fdao.updateFilePrd_num(prd_num, id);
+		
+		ActionForward forward = new ActionForward();
+		forward.setPath("/myPage.my");
+		
 		
 		return forward;
 	}
-
 }

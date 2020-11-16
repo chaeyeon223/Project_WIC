@@ -15,14 +15,18 @@ import kr.or.wic.dto.ClosetDTO;
 import kr.or.wic.dto.MemberDTO;
 import kr.or.wic.dto.ProductDTO;
 
-public class MyClosetPageAction implements Action {
+public class MemberClosetPageAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		response.setContentType("text/html;charset=UTF-8"); // 클라언트에게 전달한 페이지의 정보 구성
 		
 		String viewpage = "";
 		ActionForward forward = new ActionForward();
-		String id = (String)request.getSession().getAttribute("id");
+		int prd_num = Integer.parseInt(request.getParameter("prd_num"));
+		
+		//id값 받아오기
+		ProductDAO pdao = new ProductDAO();
+		String id = pdao.getIdByPrdNum(prd_num);
 		
 		//해당 회원의 옷장 정보를 가지고 들어가야
 		//Left: 회원의 name, profile_pic, addr, Like_Record 테이블의 get_id 수 count, 옷장 테이블(closet_num과 일치하는)의 closet_title, closet_content
@@ -32,16 +36,10 @@ public class MyClosetPageAction implements Action {
 		MemberDTO member = new MemberDTO();
 		MemberDAO mdao = new MemberDAO();
 		member = mdao.getMemberById(id); //해당 회원의 모든 정보
-		System.out.println(member);
-		
 
 		//Like 받은 수
 		Like_RecordDAO ldao = new Like_RecordDAO();
 		int getLike = ldao.getGetLikeById(id);
-		
-		//좋아요 여부
-		String send_id = (String)request.getSession().getAttribute("id");
-		int checkLike = ldao.checkLike(send_id, id);
 		
 		//closet(closet_num, closet_title, closet_content) 정보
 		ClosetDTO closet = new ClosetDTO();
@@ -49,7 +47,6 @@ public class MyClosetPageAction implements Action {
 		closet = cdao.getClosetById(id);
 		
 		//product 객체 정보
-		ProductDAO pdao = new ProductDAO();
 		List<ProductDTO> productList = pdao.getEachMemberAllProductAndFileList(id);
 		List<ProductDTO> cartProductList = pdao.getEachMemberAllCartProductAndFileList(id);
 		
