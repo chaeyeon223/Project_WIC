@@ -14,15 +14,20 @@ public class CsWriteAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		int notice = 0;
+		int cs_secret = 0;
 		if(request.getParameter("notice") != null) {
 			notice = Integer.parseInt(request.getParameter("notice"));
+		}
+		if(request.getParameter("cs_secret") != null) {
+			cs_secret = Integer.parseInt(request.getParameter("cs_secret"));
 		}
 		String id = request.getParameter("id");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		
 				
 		CustomerServiceDAO dao = new CustomerServiceDAO();
-		dao.writeCs(id, title, content, notice);
+		dao.writeCs(id, title, content, notice, cs_secret);
 		
 		String msg = "글 작성 성공!";
 		String url = "/csPage.cs?&currentPage=1&pageSize=10";		

@@ -10,21 +10,25 @@ import kr.or.wic.action.ActionForward;
 import kr.or.wic.dao.MemberDAO;
 import net.sf.json.JSONArray;
 
-public class MyClosetEditAction implements Action{
-
+public class MemberDetailInfoAction implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		String id = (String)request.getSession().getAttribute("id");
-		String content = request.getParameter("contentedit");
+		
+		String id = request.getParameter("memberId");
 		System.out.println(id);
-		System.out.println(content);
-		
 		MemberDAO dao = new MemberDAO();
-		dao.setClosetInfo(id, content);
+		int[] arr = dao.memberInfo(id);
 		
-			
+		JSONArray arrJson = JSONArray.fromObject(arr);
+		response.setContentType("application/x-json; charset=UTF-8");
 		
-
-		return null;
+		try {
+			response.getWriter().print(arrJson);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+			
+		return null;
 	}
+
+}

@@ -61,19 +61,28 @@
                         
                         <fieldset class="p-4">
                             <div class="form-group">
-								<c:if test="${dto.id eq 'admin@admin.com'}">
+
 									<div class="row">
 										<div class="col-md-10"></div>
 										<div class="col-md-2">
-
+										<c:if test="${dto.id eq 'admin@admin.com'}">
 											<select name="cs_notice" class="form-control">
-												<option
-													<c:if test="${dto.cs_notice eq 1}">selected</c:if> value="1">공지사항</option>
-												<option <c:if test="${dto.cs_notice eq 0}">selected</c:if> value="0">일반글</option>
+
+												<option <c:if test="${dto.cs_notice eq 1}">selected</c:if>
+													value="1">공지사항</option>
+												<option <c:if test="${dto.cs_notice eq 0}">selected</c:if>
+													value="0">일반글</option>
 											</select>
-										</div>
+										</c:if>
+										<c:if test="${dto.id != 'admin@admin.com'}">
+											<select name="cs_secret" class="form-control">
+												<option <c:if test="${dto.cs_secret eq 1}">selected</c:if> value="1">비밀글</option>
+												<option <c:if test="${dto.cs_secret eq 0}">selected</c:if> value="0">공개글</option>
+											</select>
+										</c:if>
 									</div>
-								</c:if>
+									</div>
+								
 								<div class="row">
                                     <div class="col-lg-6 py-2">
                                       Number <input type="text" value="${dto.cs_num}" class="form-control" name="cs_num" readonly>
@@ -93,6 +102,7 @@
                             </div>   
                               SUBJECT
                             <input type="text" value="${dto.cs_title }" class="form-control" name="title" >
+                            
                             <textarea name="content" placeholder="Message *" class="border w-100 p-3 mt-3 mt-lg-4" >${dto.cs_content }</textarea>
                             <div class="btn-grounp">
                               <a href="<%=request.getContextPath()%>/csDetailPage.cs?cs_num=${dto.cs_num}&currentPage=${currentPage}&pageSize=${pageSize}"> 

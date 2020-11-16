@@ -15,6 +15,8 @@ public class LikeSendAjaxAction implements Action{
 		
 		String send_id = request.getParameter("send_id");
 		String get_id = request.getParameter("get_id");
+		System.out.println(send_id);
+		System.out.println(get_id);
 
 		Like_RecordDAO dao = new Like_RecordDAO();
 		dao.sendLike(send_id, get_id);
