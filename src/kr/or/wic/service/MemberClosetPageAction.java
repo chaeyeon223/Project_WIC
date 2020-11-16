@@ -1,6 +1,5 @@
 package kr.or.wic.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
-import kr.or.wic.dao.CartDAO;
 import kr.or.wic.dao.ClosetDAO;
 import kr.or.wic.dao.Like_RecordDAO;
 import kr.or.wic.dao.MemberDAO;
@@ -17,14 +15,18 @@ import kr.or.wic.dto.ClosetDTO;
 import kr.or.wic.dto.MemberDTO;
 import kr.or.wic.dto.ProductDTO;
 
-public class MyClosetPageAction implements Action {
+public class MemberClosetPageAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		response.setContentType("text/html;charset=UTF-8"); // 클라언트에게 전달한 페이지의 정보 구성
 		
 		String viewpage = "";
 		ActionForward forward = new ActionForward();
-		String id = (String)request.getSession().getAttribute("id");
+		int prd_num = Integer.parseInt(request.getParameter("prd_num"));
+		
+		//id값 받아오기
+		ProductDAO pdao = new ProductDAO();
+		String id = pdao.getIdByPrdNum(prd_num);
 		
 		//해당 회원의 옷장 정보를 가지고 들어가야
 		//Left: 회원의 name, profile_pic, addr, Like_Record 테이블의 get_id 수 count, 옷장 테이블(closet_num과 일치하는)의 closet_title, closet_content
@@ -34,18 +36,10 @@ public class MyClosetPageAction implements Action {
 		MemberDTO member = new MemberDTO();
 		MemberDAO mdao = new MemberDAO();
 		member = mdao.getMemberById(id); //해당 회원의 모든 정보
-		System.out.println(member);
-		
-		
-		
 
 		//Like 받은 수
 		Like_RecordDAO ldao = new Like_RecordDAO();
 		int getLike = ldao.getGetLikeById(id);
-		
-		//좋아요 여부
-		String send_id = (String)request.getSession().getAttribute("id");
-		int checkLike = ldao.checkLike(send_id, id);
 		
 		//closet(closet_num, closet_title, closet_content) 정보
 		ClosetDTO closet = new ClosetDTO();
@@ -53,29 +47,14 @@ public class MyClosetPageAction implements Action {
 		closet = cdao.getClosetById(id);
 		
 		//product 객체 정보
-		ProductDAO pdao = new ProductDAO();
 		List<ProductDTO> productList = pdao.getEachMemberAllProductAndFileList(id);
-
-
-		//likeList
-		List<Integer> likeList = new ArrayList<Integer>();
-		CartDAO cartdao = new CartDAO();
-		for(ProductDTO product : productList) {
-			likeList.add(cartdao.getLikeByPrdnum(product.getPrd_num()));
-		}
-
 		List<ProductDTO> cartProductList = pdao.getEachMemberAllCartProductAndFileList(id);
 		
 		//file(file_name) 정보(모든 파일 리스트의 name 중 각 prd_num의 첫번째 파일)
-		
-		
 		request.setAttribute("member", member);
 		request.setAttribute("getLike", getLike);
 		request.setAttribute("closet", closet);
 		request.setAttribute("productList", productList);
-		request.setAttribute("checkLike", checkLike);
-		request.setAttribute("likeList", likeList);
-		System.out.println(productList);
 		request.setAttribute("cartProductList", cartProductList);
 
 		viewpage = "MyCloset.jsp";

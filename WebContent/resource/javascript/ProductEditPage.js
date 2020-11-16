@@ -2,6 +2,23 @@ $(function(){
 	var uploadFiles=[];
 	var $drop=$('#drop');
 	
+	$('#summernote').summernote( {
+		maxheight: 400,
+		minHeight: 300,
+		lang: "ko-KR",	
+		placeholder: '최대 2048자까지 쓸 수 있습니다',
+		codemirror: { // codemirror options
+    	theme: 'monokai'
+  		},
+		callbacks:{
+			onImageUpload: function(files, editor,weleditable){
+					thumbnail(files);
+					uploadFile(files);
+			}
+		}
+	});
+	
+	
 	$drop.on("dragenter",function(e){
 		$(this).addClass('drag-over');
 	}).on("dragleave",function(e){
@@ -10,32 +27,32 @@ $(function(){
 		e.stopPropagation();
 		e.preventDefault();
 	}).on("drop",function(e){
-		var files= e.originalEvent.dataTransfer.files;
+		var file= e.originalEvent.dataTransfer.files;
 		e.preventDefault();
    		$("input[type='file']")
-        .prop("files", files)  // put files into element
+        .prop("files", file)  // put files into element
         .closest("form")
         .submit();  // autosubmit as well
 		$(this).removeClass('drag-over');
-		console.log(files);
-		thumbnail(files)
-		
+		thumbnail(file)
+		uploadFile(file)
+	});
+	
+	function uploadFile(file){
 		var formData = new FormData();
-		formData.append('upload-file', files[0], files.name);
-		
+		formData.append('upload-file', file[0], file.name);
 		
 		$.ajax({
-		url: 'fileUpload.Ajax',
-		data : formData,
-		type : 'post',
-		contentType : false,
-		processData: false,
-		success : function(ret) {
-			console.log(ret);
-		}
+			url: 'fileUpload.Ajax',
+			data : formData,
+			type : 'post',
+			contentType : false,
+			processData: false,
+			success : function(ret) {
+				console.log(ret);
+			}
 		});
-		
-	});
+	}
 	
 	function thumbnail(files){
 		for(var i=0; i<files.length; i++){
@@ -43,16 +60,12 @@ $(function(){
 			var size = uploadFiles.push(file);
 			preview(file,size-1);
 		}
-		console.log(size);
-		console.log(uploadFiles);
-		
 	}
 	
 	function preview(file,idx){
 		let reader = new FileReader();
 		reader.onload =(function(f,idx){
 				return function(e){
-					console.log(f);
 					var div = '<div class="thumb col-md-5 px-auto mx-auto">\
 						<div class="close" data-idx="'+idx+'">x</div>\
 						<img class="col-md-12 px-0 mx-0" src="'+e.target.result+'"title="'+escape(f.name)+'"/>\
@@ -82,50 +95,31 @@ $(function(){
 	
 	
 	$('#file_add').click(function() {
-	    console.log('fileadd');
 	    $("#fileProfile").click();
-	   
 	});
 	
 	 //업로드 파일체인지가 됬을경우 실행되는 이벤트  form태그에 fileProfile은 opacity:0으로 넣어줌
 	var input = document.querySelector('input[name="fileProfile"]');
     input.addEventListener('change',(function(e){
     	
-    	var fileList = input.files;
-        console.log($("#fileProfile").val());
-    	thumbnail(fileList);
+    	var file = input.files;
+    	thumbnail(file);
         $("#fileProfile").val();
-    	console.log(fileList);
 		
-		var formData = new FormData();
-		formData.append('upload-file', fileList[0], fileList.name);
-		
-		$.ajax({
-		url: 'fileUpload.Ajax',
-		data : formData,
-		type : 'post',
-		contentType : false,
-		processData: false,
-		success : function(ret) {
-		
-		}
-		});
+		uploadFile(file);
 		
 		
-	}))
+	}));
 	
 	
 	function readFiles(file){
 		let reader = new FileReader();
 		reader.onload=function(e){
 			var bin = e.target.result;	
-			console.log(bin);
 			var formData = new FormData(); 
 			formData.append("filelist",bin)
 			
 			}
 		reader.readAsDataURL(file);
 	};
-	
-	
 })

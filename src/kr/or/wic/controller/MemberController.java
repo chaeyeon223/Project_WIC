@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
 import kr.or.wic.service.MemberCheckIdAction;
+import kr.or.wic.service.MemberClosetPageAction;
 import kr.or.wic.service.MypageMemberEditAction;
 import kr.or.wic.service.MypageMemberEditPageAction;
 import kr.or.wic.service.MemberLogInAction;
@@ -81,6 +82,10 @@ public class MemberController extends HttpServlet {
     		forward = action.execute(request, response);
     	} else if (url_Command.equals("/Like.my")) { //좋아요 (사람)
     		
+    		
+    	} else if(url_Command.equals("/memberClosetPage.my")) {
+    		action = new MemberClosetPageAction();
+    		forward = action.execute(request, response);
     	}
     	
     	if(forward!=null) {

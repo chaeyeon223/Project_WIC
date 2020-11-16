@@ -13,6 +13,7 @@ import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
 import kr.or.wic.service.ProductDetailPageAction;
 import kr.or.wic.service.ProductEditAction;
+import kr.or.wic.service.ProductEditCancelAction;
 import kr.or.wic.service.ProductEditPageAction;
 import kr.or.wic.service.ProductListPageAction;
 import kr.or.wic.service.ProductSearchPageAction;
@@ -71,9 +72,9 @@ public class ProductController extends HttpServlet {
     	} else if (url_Command.equals("/ProductEdit.Pd")) { //상품 수정 
     		action = new ProductEditAction();
     		forward = action.execute(request, response);
-    	} else if (url_Command.equals("/ProductEditCancle.Pd")) { //상품 수정 취소 
-    		
-    		
+    	} else if (url_Command.equals("/ProductEditCancel.Pd")) { //상품 수정 취소
+    		action = new ProductEditCancelAction();
+    		forward = action.execute(request, response);
     	} else if (url_Command.equals("/ProductSearchPage.Pd")) { //상품 검색 
     		action = new ProductSearchPageAction();
     		forward = action.execute(request, response);
