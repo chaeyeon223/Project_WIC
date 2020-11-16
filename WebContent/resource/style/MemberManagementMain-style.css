@@ -8,14 +8,14 @@
 @charset "EUC-KR";
 
 body {
-    line-height: 1.7;
+    line-height: 1.5;
     color: #000;
-    font-weight: 200;
-    font-size: 1.1rem;
+    font-weight: 400;
+    font-size: 1rem;
 }
 
 .site-blocks-cover.inner-page-cover, .site-blocks-cover.inner-page-cover .row {
-    min-height: 350px;
+    min-height: 500px;
     height: calc(20vh); 
 }
     

@@ -1,4 +1,9 @@
-
+/* 
+@Project : WIC
+@File name : loginRegister-style.css
+@Date : 2020.11.09
+@Author : 문지연
+*/
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
 * {
@@ -140,7 +145,7 @@ form .field input{
 	border-color: #27ae60;
   }
 
-  form .error-text{
+ form .error-text{
 	position: relative;
 	margin: 10px 0 -5px 0;
 	background: #FF4B2B;
@@ -221,12 +226,26 @@ form .error-text2:before{
 	margin-left: 5%;
 }
 
+#filediv {
+	width:100%;
+}
+
+#filediv img.preview{
+	width:20%;
+	float:left;
+}
+
+#filediv input.filename{
+	width:80%;
+	float:left;
+}
+
 .container {
 	background-color: #fff;
 	position: relative;
 	overflow: hidden;
 	width: 100%;
-	min-height: 480px;
+	min-height: 520px;
 }
 
 .form-container {
@@ -365,8 +384,8 @@ form .error-text2:before{
 	transform: translateX(20%);
 }
 
-@media screen and (max-width:800px){
+/* @media screen and (max-width:800px){
 	.container{
 		top:360px
-	}
+	} */
 }

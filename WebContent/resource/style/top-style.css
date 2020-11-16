@@ -93,7 +93,7 @@
 	cursor:pointer;
 }
 
-#topNav ul .search-icon{
+#topNav ul li.search-icon{
     height: 40px;
     width: 240px;
     display : flex;

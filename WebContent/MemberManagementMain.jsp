@@ -125,4 +125,5 @@
 <script src="resource/javascript/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
 </body>
+
 </html>

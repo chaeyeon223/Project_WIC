@@ -60,7 +60,10 @@
 			</div>
 				<input type="text" id="addr" name="addr" placeholder="address"> 
 				<input type="text" id="detailAddr" name="detailAddr" placeholder="detail Address"> 
-				<input type="file" id="filename" name="filename" accept="image/*">
+				<div id="filediv">
+				<img id="preview" class="preview" src="upload/emp.png" alt="default img">
+				<input type="file" id="filename" name="filename" class="filename" accept="image/*">
+				</div>
 				<input type="submit" id="signup_btn" name="signup_btn" value="Sign Up">
 			</div>
 			</form>
