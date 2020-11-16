@@ -41,18 +41,19 @@ public class MyClosetPageAction implements Action {
 		ClosetDTO closet = new ClosetDTO();
 		ClosetDAO cdao = new ClosetDAO();
 		closet = cdao.getClosetById(id);
-		System.out.println(closet);
 		
 		//product 객체 정보
 		ProductDAO pdao = new ProductDAO();
 		List<ProductDTO> productList = pdao.getEachMemberAllProductAndFileList(id);
+		List<ProductDTO> cartProductList = pdao.getEachMemberAllCartProductAndFileList(id);
 		
 		//file(file_name) 정보(모든 파일 리스트의 name 중 각 prd_num의 첫번째 파일)
 		request.setAttribute("member", member);
 		request.setAttribute("getLike", getLike);
 		request.setAttribute("closet", closet);
 		request.setAttribute("productList", productList);
-		
+		request.setAttribute("cartProductList", cartProductList);
+
 		viewpage = "MyCloset.jsp";
 		forward.setPath(viewpage);
 		return forward;

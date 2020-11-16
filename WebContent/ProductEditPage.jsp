@@ -28,7 +28,9 @@
 	</div>
 	<form action="<%=request.getContextPath()%>/ProductEdit.Pd" method="post" id="upload">
 		<div class="row">
-		
+			<!-- prd_num을 parameter로 넘기기 위한 input tag(hide) -->
+			<input type="text" value="${product.prd_num}" name="prd_num" style="display: none"/>
+			
 			<!-- 상품 정보 -->
 			<div class="col-md-12">
 				<div class="container">

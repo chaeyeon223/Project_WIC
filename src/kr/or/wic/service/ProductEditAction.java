@@ -18,6 +18,9 @@ public class ProductEditAction implements Action{
 		String context = request.getParameter("context");
 		String id = (String)request.getSession().getAttribute("id");
 		
+		//prd_num
+		int prd_num = Integer.parseInt(request.getParameter("prd_num"));
+		
 		//closet_num
 		MemberDAO mdao = new MemberDAO();
 		int closet_num = mdao.getCloset_numById(id);
@@ -30,7 +33,7 @@ public class ProductEditAction implements Action{
 		pdto.setPrd_content(context);
 		pdto.setCloset_num(closet_num);
 		
-		//product 정보 insert(dao)
+		//product 정보 수정(dao)
 		ProductDAO pdao = new ProductDAO();
 		pdao.updateProduct(pdto);
 		
