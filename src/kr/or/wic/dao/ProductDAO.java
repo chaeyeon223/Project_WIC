@@ -550,7 +550,6 @@ public class ProductDAO {
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
 					result = rs.getInt(1);
-					System.out.println(result);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -666,5 +665,32 @@ public class ProductDAO {
 			}
 		}
 		return cartProductList;
+	}
+	
+	//prd_num으로 id 받아오기
+	public String getIdByPrdNum(int prd_num){
+		String id = "";
+		
+		try {
+			conn = ds.getConnection();
+			String sql = "select m.id from product p, member m where p.closet_num = m.closet_num and p.prd_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, prd_num);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				id = rs.getString("id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return id;
 	}
 }

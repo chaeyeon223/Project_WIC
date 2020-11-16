@@ -115,7 +115,10 @@
 		<div class="col-md-6 rightDiv">
 			<div class="mb-4">
 				<div class="d-flex justify-content-between">
-					<img id="userPic" src="upload/${member.profile_pic}">
+					<!-- 이미지 클릭 시 해당 회원 옷장으로 이동 -->
+					<a class="toCloset" href="<%=request.getContextPath()%>/memberClosetPage.my?prd_num=${product.prd_num}">
+						<img id="userPic" src="upload/${member.profile_pic}">
+					</a>
 					<div class="mr-auto">
 						${member.name}<br>
 						<c:choose>
