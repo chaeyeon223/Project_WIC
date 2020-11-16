@@ -32,6 +32,8 @@ public class MyClosetPageAction implements Action {
 		MemberDTO member = new MemberDTO();
 		MemberDAO mdao = new MemberDAO();
 		member = mdao.getMemberById(id); //해당 회원의 모든 정보
+		System.out.println(member);
+		
 
 		//Like 받은 수
 		Like_RecordDAO ldao = new Like_RecordDAO();
@@ -41,6 +43,7 @@ public class MyClosetPageAction implements Action {
 		ClosetDTO closet = new ClosetDTO();
 		ClosetDAO cdao = new ClosetDAO();
 		closet = cdao.getClosetById(id);
+		System.out.println(closet);
 		
 		//product 객체 정보
 		ProductDAO pdao = new ProductDAO();

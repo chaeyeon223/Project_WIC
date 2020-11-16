@@ -68,12 +68,12 @@ public class MemberController extends HttpServlet {
     		action = new MyClosetPageAction();	
     		forward = action.execute(request, response);
     	} else if (url_Command.equals("/myInfoEditPage.my")) { //내 정보 수정 페이지 & 정보 수정 취소 페이지
-    		action = new MyClosetEditAction();
+    		action = new MypageMemberEditPageAction();
     		forward = action.execute(request, response);
     	} else if (url_Command.equals("/myInfoEdit.my")) { //정보 수정하기 
     		action = new MypageMemberEditAction();	
     		forward = action.execute(request, response);
-    	} else if(url_Command.equals("myClosetEdit.my")) {
+    	} else if(url_Command.equals("myClosetEdit.my")) { //옷장소개 수정하기 ajax...
     		action = new MyClosetEditAction();
     		forward = action.execute(request, response);
 		} else if (url_Command.equals("/myCart.my")) { //찜하기

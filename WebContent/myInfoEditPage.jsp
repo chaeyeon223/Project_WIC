@@ -14,7 +14,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-<link rel="stylesheet" href="resource/style/memberEditPage-style.css">
+<link rel="stylesheet" href="resource/style/memberEditPage-style2.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>Login and Register</title>
 
@@ -28,10 +28,10 @@
 	<c:set var="member" value="${requestScope.member}" />
 	<div class="container">
 	<!-- 어디로보낼지?  -->
-	<form form action="<%= request.getContextPath()%>/myInfoEdit.my" method="post" enctype="multipart/form-data" id="form" class="form">
+	<form action="<%= request.getContextPath()%>/myInfoEdit.my" id="form" class="form">
 		<div class="form-control">
 			<label for="id">ID</label>
-			<input type="email" id="id" class="id" name="id" value="${id}" readonly/>
+			<input type="email" id="id" class="id" name="id2" value="${id}" readonly/>
 		</div>
 		<div class="form-control">
 			<label for="pwd">PASSWORD</label>
@@ -55,8 +55,7 @@
 		<div style="width:100%;">
 		<input type="button" class="btn-cancel" value="CANCEL"
 		onclick="location.href='<%= request.getContextPath()%>/myPage.my'">
-		<input type="submit" class="btn-edit" value="EDIT"
-		onclick="location.href='<%= request.getContextPath()%>/myInfoEdit.my'">
+		<button type="submit" class="btn-edit">EDIT</button>
 		</div>
 		
 	</form>

@@ -16,20 +16,32 @@ import kr.or.wic.dao.MemberDAO;
 import kr.or.wic.dto.FilesDTO;
 import kr.or.wic.dto.MemberDTO;
 import kr.or.wic.dto.ProductDTO;
+import net.sf.json.JSONArray;
 
 public class MyClosetEditAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-			request.setAttribute("username", name);
-			request.setAttribute("address", addr);
-			request.setAttribute("userintro", intro);
 			
-			ActionForward forward = new ActionForward();
-			forward.setPath("MyCloset.jsp");
+		String id = (String)request.getSession().getAttribute("id");
+		String content = request.getParameter("contentedit");
+		System.out.println(id);
+		System.out.println(content);
+		
+		MemberDAO dao = new MemberDAO();
+		dao.setClosetInfo(id, content);
 		
 			
-			return forward;
+		JSONArray contentJson = JSONArray.fromObject(content);
+	      response.setContentType("application/x-json; charset=UTF-8");
+	      
+	      try {
+	         response.getWriter().print(contentJson);
+	      } catch (IOException e) {
+	         e.printStackTrace();
+	      }
+			
+			return null;
 		}
 	
 	}

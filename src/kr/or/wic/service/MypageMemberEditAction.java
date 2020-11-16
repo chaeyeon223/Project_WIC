@@ -18,12 +18,16 @@ public class MypageMemberEditAction implements Action{
 			String viewpage = "";
 			ActionForward forward = new ActionForward();
 			//String id = (String)request.getSession().getAttribute("id");
+			//System.out.println(id);
 			
 			String id = request.getParameter("id");
+			//System.out.println(id2);
 			String pwd = request.getParameter("pwd");
+			//System.out.println(pwd);
 			String name = request.getParameter("name");
 			String addr = request.getParameter("addr");
 			String profile_pic = request.getParameter("profile_pic");
+			
 			
 			
 			MemberDAO memberdao = new MemberDAO();
