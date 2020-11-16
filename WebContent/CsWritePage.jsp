@@ -69,8 +69,14 @@
 										<div class="col-md-2">
 											<c:if test="${sessionId eq 'admin@admin.com'}">
 														<select name="notice" class="form-control">
-															<option value="1">공지사항</option>
-															<option selected value="0">일반글</option>
+															<option value="1" selected>공지사항</option>
+															<option  value="0">일반글</option>
+														</select>
+											</c:if>
+											<c:if test="${sessionId != 'admin@admin.com'}">
+														<select name="cs_secret" class="form-control">
+															<option value="0" selected>공개글</option>
+															<option  value="1">비밀글</option>
 														</select>
 											</c:if>
 										</div>

@@ -13,8 +13,8 @@ import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
 import kr.or.wic.service.LikeDeleteAjaxAction;
 import kr.or.wic.service.LikeSendAjaxAction;
+import kr.or.wic.service.MemberDetailInfoAction;
 import kr.or.wic.service.ProductFileDeleteAjaxAction;
-import kr.or.wic.service.ProductListAjaxAction;
 import kr.or.wic.service.ProductUploadAjaxAction;
 
 /*
@@ -69,6 +69,9 @@ public class AjaxController extends HttpServlet {
     		forward = action.execute(request, response);
     	} else if (url_Command.equals("/deleteLike.Ajax")) { //좋아요 취소하기
     		action = new LikeDeleteAjaxAction();
+    		forward = action.execute(request, response);
+    	} else if (url_Command.equals("/memberInfo.Ajax")) { //좋아요 취소하기
+    		action = new MemberDetailInfoAction();
     		forward = action.execute(request, response);
     	}
     	

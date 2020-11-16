@@ -20,6 +20,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="resource/style/bootstrap.min.css">
 <link rel="stylesheet" href="resource/style/MemberManagementMain-style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 <title>Login and Register</title>
 
 </head>
@@ -87,11 +88,14 @@
 								</c:forEach>
 					        </tbody>
 					    </table>
-					
-						
-						
-						<br>
-			<!-- MemberSearch -->
+					    
+					    
+					<input type="text" id="memberId"> <input type="button" id="btn"
+						value="조회">
+					<div style="height: 400px; width: 400px;">
+						<canvas id="memberChart"></canvas>
+					</div>
+					<!-- MemberSearch -->
 						<!-- <div class="row">	
 							<div class="my-auto col-md-3">
 								<input type="search" class="form-control" id="search" name="search" placeholder="Search">
@@ -124,6 +128,55 @@
 <script src="resource/javascript/MemberManagement.js"></script>
 <script src="resource/javascript/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+<script>
+$('#btn').on('click',function(){
+	$('#memberChart').empty();
+	$.ajax({
+		url:'memberInfo.Ajax',
+		type : 'POST',
+		dataType : 'JSON',
+		data : {
+			memberId : $('#memberId').val()
+		},
+		success:function(data){
+			console.log(data)
+			var mc = ${'memberChart'};
+			var chart = new Chart(mc, {
+				type : 'radar',
+				data : {
+					labels : ["방문", "옷장상품", "판매 상품", "판매완료 상품", "상품 문의"],
+					datasets : [
+						{
+						 data: [data[0],data[1],data[2],data[3],data[4]],
+						 backgroundColor : [
+							 "rgba(242,166,52,0.5)",
+							
+						 ],
+						 borderColor : [
+							 "rgb(242,166,54)",
+							
+						 ],
+						 hoberBackgroundColor : [
+							 "rgb(242,166,54)",
+							
+						 ],
+						 borderWidth : 1
+						}
+					]
+				},
+				options : {
+					maintainAspectRatio : false,
+					legend : {
+						display : false
+					}
+				}
+			})
+			
+		}
+	});
+});
+
+</script>
 </body>
 
 </html>

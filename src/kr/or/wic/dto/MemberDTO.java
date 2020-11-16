@@ -7,6 +7,14 @@ public class MemberDTO {
 	private String addr;
 	private String profile_pic;
 	private int closet_num;
+	private int loginCount;
+	
+	public int getLoginCount() {
+		return loginCount;
+	}
+	public void setLoginCount(int loginCount) {
+		this.loginCount = loginCount;
+	}
 	public String getId() {
 		return id;
 	}
