@@ -24,7 +24,6 @@
 	
 	$('#btn').on('click',function(){
 		$('#memberChart').empty();
-		
 		$.ajax({
 			url:'admin.minchan',
 			type : 'POST',

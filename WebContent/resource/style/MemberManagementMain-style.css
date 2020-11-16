@@ -1,0 +1,56 @@
+/* 
+@Project : WIC
+@File name : MemberManagement-style.css
+@Date : 2020.11.12
+@Author : 문지연
+*/
+
+@charset "EUC-KR";
+
+body {
+    line-height: 1.7;
+    color: #000;
+    font-weight: 200;
+    font-size: 1.1rem;
+}
+
+.site-blocks-cover.inner-page-cover, .site-blocks-cover.inner-page-cover .row {
+    min-height: 350px;
+    height: calc(20vh); 
+}
+    
+.site-blocks-cover.overlay {
+    position: relative;
+}
+
+.site-blocks-cover, .site-blocks-cover .row {
+    min-height: 600px;
+    height: calc(100vh);
+}
+
+.site-blocks-cover {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-position: center center;
+}
+
+.site-blocks-cover.overlay:before {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+::selection {
+    background: #000;
+    color: #fff;
+}
+
+#result-table th{
+	width:20%;
+}
+

@@ -39,7 +39,7 @@ public class ClosetDAO {
 		int result = 0;
 		try {
 			conn=ds.getConnection();
-			String sql = "insert into closet(closet_num) values(closet_closet_num.nextval)";	
+			String sql = "insert into closet(closet_num) values(closet_seq.nextval)";	
 			pstmt=conn.prepareStatement(sql);
 			result = pstmt.executeUpdate();
 		}catch (SQLException e) {

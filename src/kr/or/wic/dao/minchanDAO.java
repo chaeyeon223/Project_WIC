@@ -32,7 +32,7 @@ public class minchanDAO {
 		}
 	}
 	
-		//로그인 횟수
+		//로그인 카운팅~~~
 		public void loginCount(String id) {
 			System.out.println("loginCount 진입");
 			try {

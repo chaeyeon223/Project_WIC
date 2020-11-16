@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
-import kr.or.wic.service.AdminAction;
+import kr.or.wic.service.MemberDetailInfoAction;
 import kr.or.wic.service.ProductDetailPageAction;
 import kr.or.wic.service.ProductEditAction;
 import kr.or.wic.service.ProductEditPageAction;
@@ -42,7 +42,7 @@ public class minchan extends HttpServlet {
     	
     	
     	if(url_Command.equals("/admin.minchan")) { //상품 등록 페이지 
-    		action = new AdminAction();
+    		action = new MemberDetailInfoAction();
     		forward = action.execute(request, response);		
     	}
     	

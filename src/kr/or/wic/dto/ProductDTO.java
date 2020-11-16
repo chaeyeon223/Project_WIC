@@ -73,7 +73,4 @@ public class ProductDTO {
 				+ ", prd_date=" + prd_date + ", prd_content=" + prd_content + ", prd_state=" + prd_state
 				+ ", prd_count=" + prd_count + ", closet_num=" + closet_num + "]";
 	}
-	
-	
-	
 }

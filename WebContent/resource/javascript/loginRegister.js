@@ -16,13 +16,13 @@ function findAddress() {
 	new daum.Postcode({
 		oncomplete: function(data) {
 		
-			let addr = ''; // 주소
+			let address = ''; // 주소
 			let extraAddr = ''; // 상세주소
 
 			if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-				addr = data.roadAddress;
+				address = data.roadAddress;
 			} else { // 사용자가 지번 주소를 선택했을 경우(J)
-				addr = data.jibunAddress;
+				address = data.jibunAddress;
 			}
 
 			if(data.userSelectedType === 'R'){
@@ -44,47 +44,74 @@ function findAddress() {
 			}
 
 			document.getElementById('postcode').value = data.zonecode;
-			document.getElementById("address").value = addr;
-			document.getElementById("detailAddr").focus();
+			document.getElementById('addr').value = address;
+			document.getElementById('detailAddr').focus();
 		}
 	}).open();
 }
 
-/*정규표현식*/
-	let emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i //이메일 형식
-	let pwdReg = /^[A-za-z0-9]{4,12}$/; //4~12자리 영문+숫자 조합 비밀번호 
-	
-	
-	let userEmail = document.getElementById("id");
-	let userPwd = document.getElementById("pwd");
-	
-	userEmail.addEventListener("focusout", checkEmail);
-	userPwd.addEventListener("focusout", checkPwd);
+/*정규식 표현*/
+	const userEmail = document.querySelector("#id");
+	const userPwd = document.querySelector("#pwd");
+	const icon1 = document.querySelector(".icon1");
+	const icon2 = document.querySelector(".icon2");
+	const error = document.querySelector(".error-text");
+	const error2 = document.querySelector(".error-text2");
+	const signUpBtn = document.querySelector("#signup_btn");
+	const emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i //이메일 형식
+	const pwdReg = /^[A-za-z0-9]{4,12}$/; //4~12자리 영문+숫자 조합 비밀번호 
 
-	
-	function checkAll(){
-		let checkup = false;
-		if(!(!userEmail.value=="" ||  userPwd.value=="")){
-			checkup = true;
+	function checkEmail(){
+		if(userEmail.value.match(emailReg)){
+			userEmail.style.borderColor = "#27ae60";
+			userEmail.style.background = "#eafaf1";
+			icon1.style.display = "none";
+			icon2.style.display = "block";
+			error.style.display = "none";
+			signUpBtn.style.display = "block";
+		  }else{
+			userEmail.style.borderColor = "#e74c3c";
+			userEmail.style.background = "#fceae9";
+			icon1.style.display = "block";
+			icon2.style.display = "none";
+			error.style.display = "block";
+			signUpBtn.style.display = "none";
+		  }
+		  if(userEmail.value == ""){
+			userEmail.style.borderColor = "lightgrey";
+			userEmail.style.background = "#fff";
+			icon1.style.display = "none";
+			icon2.style.display = "none";
+			error.style.display = "none";
+			signUpBtn.style.display = "none";
+		  }
 		}
-		return checkup;
-	}
-	
-	
-	function checkEmail() {
-		if (!emailReg.test(userEmail.value)) {
-			alert("아이디는 이메일 형식입니다.");
-			userEmail.value = "";
-		} 
-	}
-	
+
 	function checkPwd(){
-		if(!( pwdReg.test(userPwd.value) && (userPwd.value.search(/[0-9]/)>-1) && (userPwd.value.search(/[a-zA-Z]/)>-1) )){
-			alert("비밀번호는 영문,숫자 조합 4~12자리의 형식입니다.");
-			userPwd.value = "";
+		if(userPwd.value.match(pwdReg)){
+			userPwd.style.borderColor = "#27ae60";
+			userPwd.style.background = "#eafaf1";
+			icon3.style.display = "none";
+			icon4.style.display = "block";
+			error2.style.display = "none";
+			signUpBtn.style.display = "block";
+		}else{
+			userPwd.style.borderColor = "#FF4B2B";
+			userPwd.style.background = "#fceae9";
+			icon3.style.display = "block";
+			icon4.style.display = "none";
+			error2.style.display = "block";
+			signUpBtn.style.display = "none";
+			}
+		if(userPwd.value == ""){
+			userPwd.style.borderColor = "lightgrey";
+			userPwd.style.background = "#fff";
+			icon3.style.display = "none";
+			icon4.style.display = "none";
+			error2.style.display = "none";
+			signUpBtn.style.display = "none";
+			  }
 		}
-	}
-	
 	
 /*check id for register */
 

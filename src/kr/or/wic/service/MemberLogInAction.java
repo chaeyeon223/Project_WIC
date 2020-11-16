@@ -28,7 +28,7 @@ public class MemberLogInAction implements Action{
 		
 		String id=request.getParameter("id");
 		String pwd=request.getParameter("pwd");
-		
+		System.out.println(pwd);
 		MemberDAO memberDao = new MemberDAO();
 		MemberDTO memberDto = memberDao.signedIn(id, pwd);
 		
@@ -40,7 +40,8 @@ public class MemberLogInAction implements Action{
 		} else {
 			viewpage = "Main.jsp";
 			HttpSession session = request.getSession();
-			session.setAttribute("id", memberDto.getId());	
+			session.setAttribute("id", memberDto.getId());
+			memberDao.loginCount(memberDto.getId());
 			System.out.println("signed in");
 		}
 			

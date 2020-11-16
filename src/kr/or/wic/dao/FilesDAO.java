@@ -12,7 +12,6 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import kr.or.wic.dto.FilesDTO;
-import kr.or.wic.dto.ProductDTO;
 
 public class FilesDAO {
 	static DataSource ds;
@@ -140,8 +139,7 @@ public class FilesDAO {
 		List<FilesDTO> filesList = new ArrayList<FilesDTO>();
 		try {
 			conn = ds.getConnection();
-			String sql = "select f.files_num, f.files_name, f.files_path, p.prd_num"
-						+ "from files f, product p where f.prd_num = p.prd_num and p.prd_num=?";
+			String sql = "select files_num, files_name, files_path, prd_num, id from files where prd_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, prd_num);
 			rs = pstmt.executeQuery();
@@ -153,6 +151,7 @@ public class FilesDAO {
 				file.setFiles_name(rs.getString("files_name"));
 				file.setFiles_path(rs.getString("files_path"));
 				file.setPrd_num(rs.getInt("prd_num"));
+				file.setId(rs.getString("id"));
 				
 				filesList.add(file);
 			}
