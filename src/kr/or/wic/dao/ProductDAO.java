@@ -566,4 +566,31 @@ public class ProductDAO {
 			}
 			return result; 
 		}
+		
+	//(최신)상품 정보 수정(update the information of product)
+	public int updateProduct(ProductDTO product) {
+		int row = 0;
+		
+		try {
+			conn = ds.getConnection(); //prd_title, prd_price, prd_date, prd_content, closet_num //prd_state, prd_count처리 필요
+			String sql = "update product set prd_title=? , prd_price=? , prd_date=sysdate, prd_content=? , closet_num=? where prd_num=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, product.getPrd_title());
+			pstmt.setInt(2, product.getPrd_price());
+			pstmt.setString(3, product.getPrd_content());
+			pstmt.setInt(4, product.getCloset_num());
+			row = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return row;
+	}
 }

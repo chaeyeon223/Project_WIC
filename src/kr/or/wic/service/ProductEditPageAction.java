@@ -43,10 +43,6 @@ public class ProductEditPageAction implements Action{
 		ProductDAO dao = new ProductDAO();
 		ProductDTO product = dao.getProduct(prd_num);
 		
-		//가격 원단위 환산
-		PriceFormat format = new PriceFormat();
-		String price = format.makeComma(product.getPrd_price());
-		
 		//file 정보
 		List<FilesDTO> fileList = new ArrayList<FilesDTO>();
 		fileList = fdao.getFilesListByPrdNum(prd_num);
@@ -58,7 +54,6 @@ public class ProductEditPageAction implements Action{
 		member = mdao.getMemberById(sellerId);
 		
 		request.setAttribute("product", product);
-		request.setAttribute("price", price);
 		request.setAttribute("fileList", fileList);
 		request.setAttribute("member", member);
 		

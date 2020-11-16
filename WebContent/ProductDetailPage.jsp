@@ -40,7 +40,8 @@
 <div class="mb-5"></div>
 <div class="container">
 	<div class="row">
-		<div class="col-md-6 mb-5">
+		<!-- Left -->
+		<div class="col-md-6 mb-5 leftDiv">
 			
 			<!-- carousel slide -->
 			<div id="imgCarousel" class="carousel slide" data-interval="false">
