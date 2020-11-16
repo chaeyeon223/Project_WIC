@@ -16,6 +16,8 @@ public class CsEditPageAction implements Action {
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int pageSize = Integer.parseInt(request.getParameter("pageSize"));
 		int cs_num = Integer.parseInt(request.getParameter("cs_num"));
+		String sessionId = (String) request.getSession().getAttribute("id");		
+		System.out.println(sessionId);
 		
 		CustomerServiceDAO dao = new CustomerServiceDAO();
 		CustomerServiceDTO dto = dao.csDetailPage(cs_num);
@@ -24,6 +26,7 @@ public class CsEditPageAction implements Action {
 		request.setAttribute("dto", dto);
 		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("sessionId", sessionId);
 		
 		ActionForward forward = new ActionForward();
 		forward.setPath("CsEditPage.jsp");

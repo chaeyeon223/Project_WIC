@@ -43,9 +43,9 @@ public class CustomerServiceDAO {
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "select * \r\n" + 
-					"from (select ROWNUM as rnum, A.*\r\n" + 
-					"    from (select * from customerservice order by cs_refer desc, cs_depth) A)\r\n" + 
+			String sql = "select *\r\n" + 
+					"from (select rownum as rnum, A.*\r\n" + 
+					"    from (select c.cs_num, c.cs_title, c.cs_refer, c.cs_depth, c.cs_step, c.cs_count, c.cs_date, c.cs_notice, c.cs_delete, c.cs_secret, m.id, m.name from customerservice c, member m where  c.id = m.id order by cs_notice desc, cs_refer desc, cs_depth) A)\r\n" + 
 					"where rnum>=? and rnum<=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow); 
@@ -56,17 +56,20 @@ public class CustomerServiceDAO {
 				dto.setCs_num(rs.getInt("CS_NUM"));	//글번호
 				dto.setCs_title(rs.getString("CS_TITLE"));	 //글제목
 //				dto.setCs_content(rs.getString("CS_CONTENT"));	//글내용
-//				dto.setCs_reffer(rs.getInt("CS_REFFER"));	//그룹번호
+				dto.setCs_reffer(rs.getInt("CS_REFER"));	//그룹번호
 				dto.setCs_depth(rs.getInt("CS_DEPTH"));	//그룹 내 순서
 				dto.setCs_step(rs.getInt("CS_STEP"));	//들여쓰기
 				dto.setCs_count(rs.getInt("CS_COUNT"));	//조회수
 				dto.setCs_date(rs.getDate("CS_DATE"));	//작성일자
-//				dto.setCs_notice(rs.getInt("CS_NOTICE"));	//공지사항여부
+				dto.setCs_notice(rs.getInt("CS_NOTICE"));	//공지사항여부
 				dto.setId(rs.getString("id"));	//작성자 아이디
+				dto.setName(rs.getString("name"));	//작성자 아이디
+				dto.setCs_delete(rs.getInt("CS_DELETE"));	//삭제여부
+				dto.setCs_secret(rs.getInt("CS_SECRET"));	//공개여부
 				csList.add(dto);
 			}
 		}catch(SQLException e){
-			System.out.println("getCsList Error");
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}finally {
 			try {
@@ -94,6 +97,7 @@ public class CustomerServiceDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		} finally {
 			try {
 				rs.close();
@@ -107,25 +111,23 @@ public class CustomerServiceDAO {
 	}
 	
 	//3. writeCs(고객센터 글 작성하기)
-	public void writeCs(String id, String title, String content) {
+	public void writeCs(String id, String title, String content, int notice) {
 		System.out.println("DAO 진입");
 		try {
 			conn  = ds.getConnection();
 			System.out.println("연결완료");
 			String sql = "insert into CUSTOMERSERVICE(CS_NUM, CS_REFER, CS_DEPTH, CS_STEP, CS_NOTICE, ID, CS_TITLE, CS_CONTENT, CS_COUNT, CS_DATE)\r\n" + 
-					"values(CUSTOMERSERVICE_CS_NUM.nextval,CUSTOMERSERVICE_CS_REFFER.nextval,0,0,0,?,?,?,0,SYSDATE)";
-//			pstmt.setString(1, dto.getId());
+					"values(CUSTOMERSERVICE_CS_NUM.nextval,CUSTOMERSERVICE_CS_REFFER.nextval,0,0,?,?,?,?,0,SYSDATE)";
 			pstmt = conn.prepareStatement(sql);
-			System.out.println("쿼리문올리기 성공");
-			pstmt.setString(1, "minchan");			
-			pstmt.setString(2, title); 
-			pstmt.setString(3, content); 
-			System.out.println("쿼리문 실행 전");			
+			pstmt.setInt(1, notice);
+			pstmt.setString(2, id);
+			pstmt.setString(3, title); 
+			pstmt.setString(4, content);
 			rs = pstmt.executeQuery();
-			System.out.println("쿼리문 실행");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 			System.out.println("writeCs() 오류 발생");
 		} finally {
 			try {
@@ -170,7 +172,7 @@ public class CustomerServiceDAO {
 		
 		try {
 			conn  = ds.getConnection();
-			String sql = "select c.cs_num, c.cs_title, c.cs_content, c.cs_count, c.cs_date, c.id, m.name, c.cs_refer, c.cs_depth, c.cs_step \r\n" + 
+			String sql = "select c.cs_num, c.cs_title, c.cs_content, c.cs_count, c.cs_date, c.id, m.name, c.cs_refer, c.cs_depth, c.cs_step, c.cs_notice \r\n" + 
 					"from customerservice c, member m\r\n" +  
 					"where c.cs_num=? and c.id = m.id";
 			pstmt = conn.prepareStatement(sql);
@@ -187,7 +189,7 @@ public class CustomerServiceDAO {
 				dto.setCs_reffer(rs.getInt("cs_refer"));	//refer
 				dto.setCs_depth(rs.getInt("cs_depth"));	//depth
 				dto.setCs_step(rs.getInt("cs_step"));	//step
-				
+				dto.setCs_notice(rs.getInt("cs_notice"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -205,17 +207,18 @@ public class CustomerServiceDAO {
 	
 	
 	//글 수정하기!
-	public int csEdit(int cs_num, String title, String content) {
+	public int csEdit(int cs_num, String title, String content, int cs_notice) {
 		int result = 0;
 		try {
 			conn = ds.getConnection();
 			String sql = "update CUSTOMERSERVICE\r\n" + 
-					"set cs_title=? , cs_content=?" + 
+					"set cs_title=? , cs_content=? , cs_notice=?" + 
 					"where cs_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, title);
 			pstmt.setString(2, content);
-			pstmt.setInt(3, cs_num);
+			pstmt.setInt(3, cs_notice);
+			pstmt.setInt(4, cs_num);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				System.out.println("csEdit() 성공!!");
@@ -259,7 +262,7 @@ public class CustomerServiceDAO {
 			pstmt.setInt(1, cs_refer);
 			pstmt.setInt(2, cs_depth+1);
 			pstmt.setInt(3, cs_step+1);
-			pstmt.setString(4, "minchan");
+			pstmt.setString(4, id);
 			pstmt.setString(5, title);
 			pstmt.setString(6,content);
 			System.out.println("2차 실행 중");

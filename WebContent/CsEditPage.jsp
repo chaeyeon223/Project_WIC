@@ -45,6 +45,7 @@
 	<c:set var="dto" value="${requestScope.dto}"/>
 	<c:set var="currentPage" value="${requestScope.currentPage}"/>
 	<c:set var="pageSize" value="${requestScope.pageSize}"/>
+	<c:set var="sessionId" value="${requestScope.sessionId}"/>
 <!-- contact us start-->
 <section class="section">
     <div class="container">
@@ -57,9 +58,23 @@
         <div class="row">
             <div class="col-md-12">
                     <form action="<%=request.getContextPath()%>/csEdit.cs?currentPage=${currentPage}&pageSize=${pageSize}" method="post">
+                        
                         <fieldset class="p-4">
                             <div class="form-group">
-                                <div class="row">
+								<c:if test="${dto.id eq 'admin@admin.com'}">
+									<div class="row">
+										<div class="col-md-10"></div>
+										<div class="col-md-2">
+
+											<select name="cs_notice" class="form-control">
+												<option
+													<c:if test="${dto.cs_notice eq 1}">selected</c:if> value="1">공지사항</option>
+												<option <c:if test="${dto.cs_notice eq 0}">selected</c:if> value="0">일반글</option>
+											</select>
+										</div>
+									</div>
+								</c:if>
+								<div class="row">
                                     <div class="col-lg-6 py-2">
                                       Number <input type="text" value="${dto.cs_num}" class="form-control" name="cs_num" readonly>
                                     </div>

@@ -85,34 +85,24 @@
                             <input type="text" value="${dto.cs_title }" class="form-control" readonly>
                             <textarea name="message" placeholder="Message *" class="border w-100 p-3 mt-3 mt-lg-4" readonly>"${dto.cs_content}"</textarea>
                             <div class="btn-grounp">
-                              <a href="<%=request.getContextPath()%>/csPage.cs?currentPage=${currentPage}&pageSize=${pageSize}">
-                              	<input type="button" class="btn btn-primary mt-2" value="뒤로">
-                         	  </a>
-
-                              <a href="<%=request.getContextPath()%>/csReWritePage.cs?cs_num=${dto.cs_num}&currentPage=${currentPage}&pageSize=${pageSize}">
-                                <button type="button" class="btn btn-primary mt-2 float-right">답글</button>
-                              </a> 
+	                              <a href="<%=request.getContextPath()%>/csPage.cs?currentPage=${currentPage}&pageSize=${pageSize}">
+	                              	<input type="button" class="btn btn-primary mt-2" value="뒤로">
+	                         	  </a>
+								 
+								 <c:if test="${dto.id != 'admin@admin.com'}">
+	                              <a href="<%=request.getContextPath()%>/csReWritePage.cs?cs_num=${dto.cs_num}&currentPage=${currentPage}&pageSize=${pageSize}">
+	                                <button type="button" class="btn btn-primary mt-2 float-right">답글</button>
+	                              </a> 
+	                             </c:if>
                              
-                             <c:choose>
-                             <c:when test="${sessionId == dto.id}">
-                             	<a href="./contact-us-write.html"> 
-                                	<button type="button"  class="btn btn-primary mt-2 ">삭제</button>
-                              	</a>
-                              	<a href="<%=request.getContextPath()%>/csEditPage.cs?cs_num=${dto.cs_num}&currentPage=${currentPage}&pageSize=${pageSize}">
-									<button type="button" class="btn btn-primary mt-2 float-right">수정</button>
-							  	</a>
-                             </c:when>
-									<c:when test="${sessionId eq 'admin@admin.com'}">
-										<a href="./contact-us-write.html">
-											<button type="button" class="btn btn-primary mt-2 ">삭제</button>
-										</a>
-										<a
-											href="<%=request.getContextPath()%>/csEditPage.cs?cs_num=${dto.cs_num}&currentPage=${currentPage}&pageSize=${pageSize}">
-											<button type="button"
-												class="btn btn-primary mt-2 float-right">수정</button>
-										</a>
-									</c:when>
-								</c:choose>
+	                             <c:if test="${sessionId == dto.id || sessionId eq 'admin@admin.com'}">
+	                             	<a href="./contact-us-write.html"> 
+	                                	<button type="button"  class="btn btn-primary mt-2 ">삭제</button>
+	                              	</a>
+	                              	<a href="<%=request.getContextPath()%>/csEditPage.cs?cs_num=${dto.cs_num}&currentPage=${currentPage}&pageSize=${pageSize}">
+										<button type="button" class="btn btn-primary mt-2 float-right">수정</button>
+								  	</a>
+								</c:if>
 							</div>
                         </fieldset>
                     </form>

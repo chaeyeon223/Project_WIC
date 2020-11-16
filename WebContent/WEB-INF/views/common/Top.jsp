@@ -36,7 +36,6 @@
 	                <li><a href="<%=request.getContextPath()%>/managePage.Mg">MANAGE</a></li>
 	                <li><a href="<%=request.getContextPath()%>/ProductListPage.Pd">PRODUCT</a></li>
 	                <li><a href="<%=request.getContextPath()%>/signOut.my">LOGOUT</a></li>
-	                <li><a href="<%=request.getContextPath()%>/ProductUploadPage.Pd">UPLOAD</a></li> <!-- 삭제 -->
 
 	                </c:if>
 	                <c:if test="${id !='admin@admin.com' }">

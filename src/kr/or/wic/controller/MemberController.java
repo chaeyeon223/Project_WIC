@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
 import kr.or.wic.service.MemberCheckIdAction;
+import kr.or.wic.service.MypageMemberEditAction;
+import kr.or.wic.service.MypageMemberEditPageAction;
 import kr.or.wic.service.MemberLogInAction;
 import kr.or.wic.service.MemberRegisterAction;
 import kr.or.wic.service.MyCartAddAction;
@@ -22,7 +24,7 @@ import kr.or.wic.service.MyClosetPageAction;
  * 회원 관련 컨트롤러
  */
 
-@WebServlet("*.my")
+@WebServlet(urlPatterns="*.my")
 public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -66,11 +68,15 @@ public class MemberController extends HttpServlet {
     		action = new MyClosetPageAction();	
     		forward = action.execute(request, response);
     	} else if (url_Command.equals("/myInfoEditPage.my")) { //내 정보 수정 페이지 & 정보 수정 취소 페이지
-    		action = new MyClosetEditAction();
+    		action = new MypageMemberEditPageAction();
     		forward = action.execute(request, response);
     	} else if (url_Command.equals("/myInfoEdit.my")) { //정보 수정하기 
-    		
-    	} else if (url_Command.equals("/myCart.my")) { //찜하기
+    		action = new MypageMemberEditAction();	
+    		forward = action.execute(request, response);
+    	} else if(url_Command.equals("myClosetEdit.my")) { //옷장소개 수정하기 ajax
+    		action = new MyClosetEditAction();
+    		forward = action.execute(request, response);
+		} else if (url_Command.equals("/myCart.my")) { //찜하기
     		action = new MyCartAddAction();
     		forward = action.execute(request, response);
     	} else if (url_Command.equals("/Like.my")) { //좋아요 (사람)

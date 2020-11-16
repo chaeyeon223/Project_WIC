@@ -14,3 +14,37 @@
 	border: 1px solid #ffffff;
 	cursor: pointer;
 }
+
+.content {
+	background-color: black;
+	border-radius: 25px;
+	color:white;
+}
+
+div>input {
+	border-top: 0;
+	border-left: 0;
+	border-right: 0;
+	border-bottom: 1;
+	border-color: white;
+	background: hsla(0, 100%, 100%, 0);
+	color : white;
+}
+
+textarea {
+	border: 3px solid white;
+	background: hsla(0, 100%, 100%, 1);
+	height: 250px;
+	resize: none;
+	overflow: auto;
+}
+#drop{
+	border: 2px solid white;
+	border-radius: 25px;
+}
+
+#file_add{
+	border: 4px dotted white;
+	border-radius: 20px;
+	height:220px;
+}

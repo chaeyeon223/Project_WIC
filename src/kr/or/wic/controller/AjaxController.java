@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
+import kr.or.wic.service.LikeDeleteAjaxAction;
+import kr.or.wic.service.LikeSendAjaxAction;
 import kr.or.wic.service.ProductFileDeleteAjaxAction;
+import kr.or.wic.service.ProductListAjaxAction;
 import kr.or.wic.service.ProductUploadAjaxAction;
 
 /*
@@ -61,11 +64,17 @@ public class AjaxController extends HttpServlet {
     	} else if (url_Command.equals("/fileDelete.Ajax")) { //파일삭제
     		action = new ProductFileDeleteAjaxAction();
     		forward = action.execute(request, response);
+    	} else if (url_Command.equals("/sendLike.Ajax")) { //좋아요 누르기
+    		action = new LikeSendAjaxAction();
+    		forward = action.execute(request, response);
+    	} else if (url_Command.equals("/deleteLike.Ajax")) { //좋아요 취소하기
+    		action = new LikeDeleteAjaxAction();
+    		forward = action.execute(request, response);
     	}
     	
     	if(forward != null) {
-    	RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());
-    	dis.forward(request, response);
+	    	RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());
+	    	dis.forward(request, response);
     	}
     }
     

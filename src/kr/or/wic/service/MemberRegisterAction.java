@@ -52,7 +52,7 @@ public class MemberRegisterAction implements Action{
 		memberDto.setName(multi.getParameter("name"));
 		memberDto.setAddr(multi.getParameter("addr"));
 		memberDto.setProfile_pic(filename);
-		
+
 		result_closet = closetDao.createCloset();
 		String viewpage ="";
 		if(result_closet!=0) {

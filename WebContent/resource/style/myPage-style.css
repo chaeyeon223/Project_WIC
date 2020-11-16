@@ -36,6 +36,13 @@
   cursor: pointer;
 }
 
+.fa-comment-o {
+  color: #ffffff;
+  cursor: pointer;
+}
+
+
+
 .profile-image img{
     border-radius:50%;
     width:170px;
@@ -74,6 +81,7 @@
   position: relative;
   height: 200px;
   overflow: hidden;
+ 
 	/*
   float: left;
   width: 30%;
@@ -84,6 +92,7 @@
 .inner-grid img{
 	max-width:100%;
 	max-height:100%;
+	display: block;
 	
 }
 
@@ -92,10 +101,18 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: auto;
-    min-height: 100%;
+    height: 100%;
+    /*min-height: 100%;*/
     overflow:hidden;
     opacity:0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    text-align: center;
+
+    
 	
 	/*
 	width:100%;
@@ -107,16 +124,19 @@
 	opacity:0;
 	*/
 }
-.inner-grid .overlay p{
-	position: absolute;
-	bottom: 20px;
-	margin-left:10px;
-  }
+
+
+ .inner-grid .overlay span{
+ 	color:#fff;
+ } 
+
+  
+  
 
 
 .inner-grid .overlay:hover{
-	opacity:1;
-	background-color:rgb(211,211,211,0.7);
+	opacity:0.9;
+	background-color:rgba(0,0,0.3);
 	transform: scale(1.05);
 	
 }
@@ -130,7 +150,7 @@ input{
 label{
 	display:inline-block;
 	margin:0 0 -1px;
-	padding : 15px 25px;
+	padding : 15px 15px;
 	font-weight: 600;
 	text-align:center;
 	color:#bbb;
@@ -154,6 +174,7 @@ input:checked + label{
    display: flex ;
    flex-wrap: wrap;
    padding: 0 4px;
+
 }
 .inner-grid {
    flex: 25%;
@@ -178,38 +199,30 @@ input:checked + label{
    }
 }
 
-
-
-
 .btn{
-	color: #ffffff;
-    background-color: #007bff;
-    border-color: #007bff;
 	display: inline-block;
-    font-weight: 600;
-    text-align: center;
-    vertical-align: middle;
-    user-select: none;
-    border: 1px solid transparent;
+	color: #ffffff;
+	background-color: #007bff;
+	border-color: #007bff;
+	display: inline-block;
+	font-weight: 600;
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid transparent;
     padding: .375rem .75rem;
+    margin: 5px 0px;
     font-size: 1rem;
     line-height: 1.5;
     border-radius: .25rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-  	margin-top: 10px;
-  	margin-bottom: 10px;
-  	cursor: pointer;
-}
-
-.btn:hover{
-	background-color: #3078c5f5;
+    cursor: pointer;
 }
 
 .mrAuto{
-	margin-right: auto;
+	margin-right: auto !important;
 }
 
-.tabmenu{
+.btnWrapper{
 	display: flex;
 	justify-content: space-between;
 }

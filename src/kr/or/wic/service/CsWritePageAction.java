@@ -14,13 +14,13 @@ public class CsWritePageAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		
-		String id="";
+		String sessionId="";
 		int currentPage = 1;
 		int pageSize = 10;
 		ActionForward forward = new ActionForward();
 		
 		if(request.getSession().getAttribute("id") != null) {
-			id = (String)request.getSession().getAttribute("id");			
+			sessionId = (String)request.getSession().getAttribute("id");		
 			if(request.getParameter("currentPage") != null) {
 				currentPage = Integer.parseInt(request.getParameter("currentPage"));			
 			}
@@ -29,11 +29,12 @@ public class CsWritePageAction implements Action{
 			}
 			
 			MemberDAO dao = new MemberDAO();
-			MemberDTO dto = dao.getMemberInfoForCs(id);
+			MemberDTO dto = dao.getMemberInfoForCs(sessionId);
 			
 			request.setAttribute("dto", dto);
 			request.setAttribute("currentPage", currentPage);
 			request.setAttribute("pageSize", pageSize);
+			request.setAttribute("sessionId", sessionId);
 			
 			System.out.println("CsWritePageAction");
 			

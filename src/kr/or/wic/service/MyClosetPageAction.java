@@ -41,6 +41,7 @@ public class MyClosetPageAction implements Action {
 		ClosetDTO closet = new ClosetDTO();
 		ClosetDAO cdao = new ClosetDAO();
 		closet = cdao.getClosetById(id);
+		System.out.println(closet);
 		
 		//product 객체 정보
 		ProductDAO pdao = new ProductDAO();

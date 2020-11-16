@@ -13,16 +13,22 @@ public class CsWriteAction implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		
+		int notice = 0;
+		if(request.getParameter("notice") != null) {
+			notice = Integer.parseInt(request.getParameter("notice"));
+		}
+		String id = request.getParameter("id");
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+				
 		CustomerServiceDAO dao = new CustomerServiceDAO();
-		CustomerServiceDTO dto = new CustomerServiceDTO();
+		dao.writeCs(id, title, content, notice);
 		
+		String msg = "글 작성 성공!";
+		String url = "/csPage.cs?&currentPage=1&pageSize=10";		
 		
-//		dto.setId(request.getParameter("id"));
-		dto.setCs_title(request.getParameter("title"));
-		dto.setCs_content(request.getParameter("content"));
-		System.out.println(dto.getCs_content());
-		
-		dao.writeCs("minchan", dto.getCs_title(), dto.getCs_content());
+		request.setAttribute("msg", msg);
+		request.setAttribute("url", url);
 		
 		ActionForward forward = new ActionForward();
 		forward.setPath("Redirect.jsp");

@@ -13,8 +13,23 @@ public class CustomerServiceDTO {
 	private Date cs_date;		//작성일자 
 	private int cs_notice;		//공지사항여부  ->  0:일반글, 1:공지글
 	private String id;			//작성자 아이디
-	private String name;
+	private String name;		//작성자 이름
+	private int cs_delete;		//삭제여부 -> 0:삭제X, 1:삭제O
+	private int cs_secret;		//비밀여부 -> 0:공개, 1:비공개 
 	
+	
+	public int getCs_delete() {
+		return cs_delete;
+	}
+	public void setCs_delete(int cs_delete) {
+		this.cs_delete = cs_delete;
+	}
+	public int getCs_secret() {
+		return cs_secret;
+	}
+	public void setCs_secret(int cs_secret) {
+		this.cs_secret = cs_secret;
+	}
 	public String getName() {
 		return name;
 	}
@@ -88,5 +103,5 @@ public class CustomerServiceDTO {
 				+ ", cs_reffer=" + cs_reffer + ", cs_depth=" + cs_depth + ", cs_step="
 				+ cs_step + ", cs_count=" + cs_count + ", cs_date=" + cs_date + ", cs_notice=" + cs_notice + ", id="
 				+ id + "]";
-	}	
+	}
 }

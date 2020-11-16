@@ -1,8 +1,7 @@
 @charset "UTF-8";
 .content {
-	background-color: black;
+	background-color: lightgray;
 	border-radius: 25px;
-	color:white;
 }
 
 div>input {
@@ -12,15 +11,10 @@ div>input {
 	border-bottom: 1;
 	border-color: white;
 	background: hsla(0, 100%, 100%, 0);
-	color : white;
+	
 }
 
-textarea {
-	border: 3px solid white;
-	background: hsla(0, 100%, 100%, 1);
-	height: 250px;
-	resize: none;
-}
+
 #drop{
 	border: 2px solid white;
 	border-radius: 25px;
@@ -29,9 +23,11 @@ textarea {
 #file_add{
 	border: 4px dotted white;
 	border-radius: 20px;
-	height:220px;
+	height:150px;
 }
-
+#fileProfile{
+	visibility : hidden;
+}
 
 
 /* #fileProfile, #uploadfile{

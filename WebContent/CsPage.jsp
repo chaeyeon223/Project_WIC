@@ -110,8 +110,11 @@
 		                            		<a href="<%= request.getContextPath()%>/csDetailPage.cs?cs_num=${csList.cs_num}&currentPage=${currentPage}&pageSize=${pageSize}">${csList.cs_title}</a>
 		                               </c:otherwise>
 										</c:choose>
+												<c:if test="${csList.cs_notice == 1}">
+		                        			<img src='resource/image/notice2.jpg'/>
+		                        		</c:if>
 									</td>
-								<td class="text-center">${csList.id}</td>
+								<td class="text-center">${csList.name}</td>
 								<td class="text-center">${csList.cs_date}</td>
 								<td class="text-center">${csList.cs_count}</td>
 							</tr>
