@@ -33,7 +33,7 @@ public class ProductEditAction implements Action{
 		pdto.setPrd_content(context);
 		pdto.setCloset_num(closet_num);
 		
-		//product 정보 수정(dao)
+		//product 정보 수정(dao) //이름,가격,내용만
 		ProductDAO pdao = new ProductDAO();
 		pdao.updateProduct(pdto);
 		

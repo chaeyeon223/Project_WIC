@@ -30,7 +30,6 @@ public class ProductEditPageAction implements Action{
 			if(file.getPrd_num() == 0) {
 				fdao.deleteFile(file.getFiles_num());
 			}
-
 		}
 		
 		String viewpage = "";

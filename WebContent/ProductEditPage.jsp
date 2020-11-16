@@ -76,8 +76,8 @@
 			<textarea class="col-md-10" id="summernote" name="context">${product.prd_content}</textarea>
 		</div>
 		<div class ="row mx-auto">
-		<input class="col-md-3 mx-auto mb-3" type="submit" id="submit" name="submit" value="EDIT">
-		<input class="col-md-3 mx-auto mb-3" type="reset" id="reset" name="reset" value="CANCLE">
+			<button class="col-md-3 mx-auto mb-3" type="submit" id="submit" name="submit">EDIT</button>
+			<button class="col-md-3 mx-auto mb-3" id="reset" name="reset" onclick="location.href='<%=request.getContextPath()%>/ProductEditCancel.Pd?prd_num=${product.prd_num}'">CANCEL</button>
 		</div>
 	</form>	
 	<input type="file" id="fileProfile" name="fileProfile" accept="image/*" multiple >
