@@ -40,7 +40,7 @@ public class ProductUploadAction implements Action{
 		fdao.updateFilePrd_num(prd_num, id);
 		
 		ActionForward forward = new ActionForward();
-		forward.setPath("/MyCloset.jsp");
+		forward.setPath("/myPage.my");
 		
 		
 		return forward;

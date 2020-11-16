@@ -75,7 +75,6 @@ public class ProductController extends HttpServlet {
     		
     		
     	} else if (url_Command.equals("/ProductSearchPage.Pd")) { //상품 검색 
-    		System.out.println("13123123123");
     		action = new ProductSearchPageAction();
     		forward = action.execute(request, response);
     		

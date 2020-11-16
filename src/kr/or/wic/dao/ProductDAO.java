@@ -73,15 +73,24 @@ public class ProductDAO {
 		return productList;
 	}
 	//1-0-1. 상품별 대표 사진 뽑기
-	private List<Integer> getProductPic(){ 
+	private List<Integer> getProductPic(int currentPage, int pageSize){ 
 		List<Integer> pic = new ArrayList<Integer>();
+		int startRow = (currentPage-1) * pageSize +1;
+		int endRow = startRow + pageSize-1;
+		System.out.println(startRow);
+		System.out.println(endRow);
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "select min(f.files_num) as num\n" + 
+			String sql = "SELECT * from\n" + 
+					"(SELECT rownum as rnum , num \n" + 
+					"FROM(select min(f.files_num) as num\n" + 
 					"from product p join files f ON p.prd_num = f.prd_num\n" + 
-					"GROUP BY p.prd_num order by p.prd_num desc";
+					"GROUP BY p.prd_num order by p.prd_num DESC) a) WHERE rnum >=? AND rnum<=?";
+			
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				pic.add(rs.getInt("num"));
@@ -132,9 +141,9 @@ public class ProductDAO {
 	}
 	
 	//1-1-1.상품정보 조회(ProductListPage 정보만 조회(prd_num, prd_title, prd_content)
-	public List<ProductDTO> getProductNumTitleContentList(){
+	public List<ProductDTO> getProductNumTitleContentList(int currentPage, int pageSize){
 		List<ProductDTO> productList = new ArrayList<ProductDTO>();
-		List<Integer> picNumList = getProductPic();
+		List<Integer> picNumList = getProductPic(currentPage, pageSize);
 		
 		try {
 				conn = ds.getConnection();
@@ -528,5 +537,33 @@ public class ProductDAO {
 				}
 			}
 			return productList;
+		}
+		
+		//7 총 게시물 수 
+		
+		public int countAllProductList() {
+			int result = 0;
+			try {
+				conn  = ds.getConnection();
+				String sql = "select count(*) from product";
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					result = rs.getInt(1);
+					System.out.println(result);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println(e.getMessage());
+			} finally {
+				try {
+					rs.close();
+					pstmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}		
+			}
+			return result; 
 		}
 }

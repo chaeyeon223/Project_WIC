@@ -36,11 +36,27 @@ public class CartDAO {
 		
 		try {
 			conn = ds.getConnection();
-			String sql = "insert into cart (prd_num,id) values(?,?)";
+			String sql = "select count(*) from cart where prd_num = ? and id = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, prd_num);
 			pstmt.setString(2, id);
-			row = pstmt.executeUpdate();
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				row = rs.getInt(1);
+				if(row>0) {
+					//지우기
+					deleteProduct(prd_num,id);
+				}else {
+					sql = "insert into cart (prd_num,id) values(?,?)";
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, prd_num);
+					pstmt.setString(2, id);
+					row = pstmt.executeUpdate();
+					
+				}
+			}
+			
 				
 		
 		} catch (SQLException e) {
@@ -58,6 +74,7 @@ public class CartDAO {
 	
 	//2 카트 제거하기
 	public void deleteProduct(int prd_num, String id ) {
+		
 		int row=0;
 		try {
 			conn = ds.getConnection();

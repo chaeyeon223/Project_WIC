@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
 import kr.or.wic.dao.FilesDAO;
+import kr.or.wic.dao.MemberDAO;
 import kr.or.wic.dto.FilesDTO;
+import kr.or.wic.dto.MemberDTO;
 
 public class ProductUploadPageAction implements Action{
 
@@ -24,7 +26,13 @@ public class ProductUploadPageAction implements Action{
 			}
 
 		}
-
+		
+		MemberDAO mdao = new MemberDAO();
+		MemberDTO mdto = mdao.getMemberById(id);
+		
+		String addr = mdto.getAddr();
+		request.setAttribute("addr", addr);
+		
 		ActionForward forward = new ActionForward();
 		forward.setPath("ProductUploadPage.jsp");
 		

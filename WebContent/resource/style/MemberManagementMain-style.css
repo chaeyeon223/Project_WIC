@@ -50,3 +50,7 @@ body {
     color: #fff;
 }
 
+#result-table th{
+	width:20%;
+}
+

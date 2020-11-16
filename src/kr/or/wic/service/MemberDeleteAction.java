@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.or.wic.action.Action;
 import kr.or.wic.action.ActionForward;
+import kr.or.wic.dao.ClosetDAO;
 import kr.or.wic.dao.MemberDAO;
 /* 
 @Project : WIC
@@ -16,12 +17,14 @@ public class MemberDeleteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		
+			int closet_num = 9999;
+			if(request.getParameter("closet_num")!= null) {
+				closet_num=Integer.parseInt(request.getParameter("closet_num")); 				
+			}
 			String id = request.getParameter("id");
-
 			MemberDAO memberDao = new MemberDAO();
 			
-			int result = memberDao.deleteMember(id);
+			int result = memberDao.deleteMember(id,closet_num);
 			System.out.println("deleted Id:"+id);
 			
 			if(result!=0) {

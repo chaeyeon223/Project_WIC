@@ -7,24 +7,24 @@
 
 @charset "UTF-8";
 
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap');
 
-body{
+*{
 	margin: 0;
-	padding: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #topNav{
     background: #fff;
     padding: 10px 40px 10px 70px;
-    border: 1px solid black;
+    border: 1px solid #000;
     border-left: none;
     border-right: none;
-    box-sizing: border-box;
-    font-family: 'Montserrat', sans-serif;
 }
 
-#topNav > ul{
+#topNav ul{
 	margin: 0;
 	padding: 0;
     display: flex;
@@ -34,9 +34,21 @@ body{
     justify-content: center;
 }
 
+#topNav ul li.logo {
+    flex: 1;
+    font-size: 40px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+}
+
 #topNav .logo a {
 	color:#000;
 	text-decoration:none;
+	font-family: 'Montserrat', sans-serif;
+}
+
+#topNav .nav-items li a.active {
+    color : #FF416C
 }
 
 #topNav ul li.logo a:hover{
@@ -47,82 +59,144 @@ body{
     color : #FF416C
 }
 
-#topNav ul li.logo{
-    flex: 1;
-    font-size: 30px;
-    font-weight: 700;
-    height: 40px;
-}
-
-#topNav .items li a:hover{
+#topNav .nav-items li a:hover{
     color : #FF416C
 }
 
-#topNav .items li a:active{
+#topNav .nav-items li a:active{
     color : #FF416C
 }
 
-#topNav ul div.items{
+#topNav ul div.nav-items{
     padding: 0 25px;
     display: inline-flex;
 }
 
-#topNav ul div.items a{
+#topNav ul div.nav-items a{
     text-decoration: none;
     font-size: 18px;
     padding: 0 12px;
     color: black;
 }
 
+#topNav ul li.btn-bar{
+	font-size:29px;
+	flex:1;
+	padding :0 40px;
+}
+
+#topNav ul li.btn-bar span{
+	height : 42px;
+	width : 42px;
+	text-align:center;
+	line-height:42px;
+	cursor:pointer;
+}
+
 #topNav ul .search-icon{
     height: 40px;
     width: 240px;
-    display: flex;
-    background: #f2f2f2;
+    display : flex;
+    background: #fff;
     border-radius: 5px;
 }
 
-#topNav ul .search-icon input{
+#topNav ul .search-icon .search-input{
     height: 100%;
-    width: 100%;
+    width: 200px;
     border: none;
     outline: none;
     padding: 0 10px;
     color: #000;
     font-size: 16px;
-    font-weight: 500;
-    font-family: 'Montserrat', sans-serif;
+    border-radius: 5px 0 0 5px;
 }
 
-
-#topNav form {
-    display: flex;
-    height: 40px;
+#topNav ul .search-icon .icon{
+    height: 100%;
+    /* width: 40px; */
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid #FF416C;
     background: #FF416C;
-    min-width: 18%!important;
-    border: 1px solid black;
-    box-sizing: border-box;
-}
-
-#topNav form button{
-    padding: 0 15px;
-    background: #FF416C;
-    border: none;
+    border-radius: 0 5px 5px 0;
     cursor: pointer;
-    font-size: 17px;
-    color: #000;
-    border-radius: 2px;
 }
 
+#topNav ul .search-icon .icon:hover{
+    background: coral;
+}
+
+#topNav ul .search-icon .icon span{
+    color : #222222;
+    font-size: 18px;
+}
+
+#topNav ul li.search-icon .btn-search{
+    height: 100%;
+    width: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: #FF416C;
+    border : 1px solid #000;
+    color:#000;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+#topNav ul li.btn-bar{
+    display: none;
+}
+
+nav ul li.btn-bar span.show:before{
+    content: '\f00d';
+}
 
 @media screen and (max-width : 1052px){
     #topNav{
         padding: 10px 40px 10px 0px;
     }
+    
     #topNav ul li.logo{
         display: none;
     }
-    #topNav ul div.items{
-        flex: 4;
+    #topNav ul div.nav-items{
+        flex: 6;
+    }
+}
+
+@media screen and (max-width:800px){
+	#topNav ul li.btn-bar{
+	display:block;
+	}
+	
+	#topNav{
+    z-index: 1;
+	padding : 9px 40px 9px 0;
+	}
+	
+	#topNav ul div.nav-items{
+    z-index: -1;
+    position:fixed;
+	top:-340px;
+	right:0;
+	width:100%;
+	background:#f2f2f2;
+	display:inline-block;
+    transition: top .4s;
+}
+    
+    #topNav ul div.nav-items.show{
+        top:50px;
+    }
+	
+	#topNav ul div.nav-items li{
+    text-align:center;
+    line-height: 30px;
+    margin: 30px 0;
+    }
+    
+    #topNav ul div.nav-items li a{
+        font-size: 19px;
     }
 }

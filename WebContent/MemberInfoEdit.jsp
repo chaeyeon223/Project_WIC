@@ -48,7 +48,7 @@
 			<label for="img">UPLOAD IMAGE</label>
 			<br>
 			<img id="preview" class="preview" src="upload/${list.profile_pic}" alt="Fail to load a profile_pic">
-			<input type="file" id="filename" name="filename" class="filename" accept="image/*">
+			<input type="file" id="profile_pic" name="profile_pic" class="filename" accept="image/*">
 		</div>
 		
 		<div style="width:100%;">

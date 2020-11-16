@@ -28,16 +28,15 @@ public class MemberEditAction implements Action {
 		}
 		
 		//DAO, DTO 처리
-		String id = request.getParameter("id");
-		String pwd = request.getParameter("pwd");
 		String name = request.getParameter("name");
 		String addr = request.getParameter("addr");
-		String profile_pic = request.getParameter("profile_pic");
+		String profile_pic = request.getParameter("preview");
+		String id = request.getParameter("id");
 		
 		MemberDAO memberDao = new MemberDAO();
-		memberDao.updateMember(id, pwd, name, addr, profile_pic);
+		memberDao.updateMember(name, addr, profile_pic, id);
 		//이동경로(viewpage)
-		viewpage = "/manageMemberEditPage.Mg";
+		viewpage = "/managePage.Mg";
 		forward.setPath(viewpage);
 		
 		return forward;

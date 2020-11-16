@@ -2,25 +2,6 @@ $(function(){
 	var uploadFiles=[];
 	var $drop=$('#drop');
 	
-	$('#summernote').summernote( {
-		maxheight: 400,
-		minHeight: 300,
-		lang: "ko-KR",	
-		placeholder: '최대 2048자까지 쓸 수 있습니다',
-		codemirror: { // codemirror options
-    	theme: 'monokai'
-  		},
-		callbacks:{
-			onImageUpload: function(files, editor,weleditable){
-					thumbnail(files);
-					uploadFile(files);
-					
-				
-			}
-		}
-	});
-	
-	
 	$drop.on("dragenter",function(e){
 		$(this).addClass('drag-over');
 	}).on("dragleave",function(e){
@@ -29,24 +10,19 @@ $(function(){
 		e.stopPropagation();
 		e.preventDefault();
 	}).on("drop",function(e){
-		var file= e.originalEvent.dataTransfer.files;
+		var files= e.originalEvent.dataTransfer.files;
 		e.preventDefault();
    		$("input[type='file']")
-        .prop("files", file)  // put files into element
+        .prop("files", files)  // put files into element
         .closest("form")
         .submit();  // autosubmit as well
 		$(this).removeClass('drag-over');
-		console.log(file);
-		thumbnail(file)
-		uploadFile(file)
+		console.log(files);
+		thumbnail(files)
 		
-		
-	});
-	
-	function uploadFile(file){
 		var formData = new FormData();
-		formData.append('upload-file', file[0], file.name);
-		console.log(file[0]);
+		formData.append('upload-file', files[0], files.name);
+		
 		
 		$.ajax({
 		url: 'fileUpload.Ajax',
@@ -58,7 +34,8 @@ $(function(){
 			console.log(ret);
 		}
 		});
-	}
+		
+	});
 	
 	function thumbnail(files){
 		for(var i=0; i<files.length; i++){
@@ -107,22 +84,35 @@ $(function(){
 	$('#file_add').click(function() {
 	    console.log('fileadd');
 	    $("#fileProfile").click();
+	   
 	});
 	
 	 //업로드 파일체인지가 됬을경우 실행되는 이벤트  form태그에 fileProfile은 opacity:0으로 넣어줌
 	var input = document.querySelector('input[name="fileProfile"]');
     input.addEventListener('change',(function(e){
     	
-    	var file = input.files;
+    	var fileList = input.files;
         console.log($("#fileProfile").val());
-    	thumbnail(file);
+    	thumbnail(fileList);
         $("#fileProfile").val();
-    	console.log(file);
+    	console.log(fileList);
 		
-		uploadFile(file);
+		var formData = new FormData();
+		formData.append('upload-file', fileList[0], fileList.name);
+		
+		$.ajax({
+		url: 'fileUpload.Ajax',
+		data : formData,
+		type : 'post',
+		contentType : false,
+		processData: false,
+		success : function(ret) {
+		
+		}
+		});
 		
 		
-	}));
+	}))
 	
 	
 	function readFiles(file){
@@ -136,12 +126,6 @@ $(function(){
 			}
 		reader.readAsDataURL(file);
 	};
-	
-	
-	
-	
-	
-	
 	
 	
 })

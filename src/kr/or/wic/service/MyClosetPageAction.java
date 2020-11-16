@@ -39,6 +39,10 @@ public class MyClosetPageAction implements Action {
 		Like_RecordDAO ldao = new Like_RecordDAO();
 		int getLike = ldao.getGetLikeById(id);
 		
+		//좋아요 여부
+		String send_id = (String)request.getSession().getAttribute("id");
+		int checkLike = ldao.checkLike(send_id, id);
+		
 		//closet(closet_num, closet_title, closet_content) 정보
 		ClosetDTO closet = new ClosetDTO();
 		ClosetDAO cdao = new ClosetDAO();

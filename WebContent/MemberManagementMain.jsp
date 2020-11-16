@@ -63,8 +63,8 @@
 									<th>ID</th>
 									<th>NAME</th>
 									<th>ADDRESS</th>
-									<th>DELETE</th>
 									<th>EDIT</th>
+									<th>DELETE</th>
 					            </tr>
 					        </thead>
 					        <tbody>
@@ -77,11 +77,11 @@
 										<td>${list.addr}</td>
 										<td >
 											<button type="button" class="btn btn-indigo btn-sm m-0"
-											onclick="location.href='<%= request.getContextPath()%>/manageMemberDelete.Mg?id=${list.id}'">DELETE</button>
+												onclick="location.href='<%= request.getContextPath()%>/manageMemberEditPage.Mg?id=${list.id}&${list.profile_pic}'">EDIT</button>
 										</td>
 										<td >
 											<button type="button" class="btn btn-indigo btn-sm m-0"
-												onclick="location.href='<%= request.getContextPath()%>/manageMemberEditPage.Mg?id=${list.id}'">EDIT</button>
+											onclick="location.href='<%= request.getContextPath()%>/manageMemberDelete.Mg?id=${list.id}&closet_num=${list.closet_num}'">DELETE</button>
 										</td>
 									</tr>
 								</c:forEach>
@@ -91,10 +91,38 @@
 						
 						
 						<br>
+			<!-- MemberSearch -->
+						<!-- <div class="row">	
+							<div class="my-auto col-md-3">
+								<input type="search" class="form-control" id="search" name="search" placeholder="Search">
+							</div>
+						</div>
+						<br>
+						<br>
+						
+						
+						
+						<table id="result-table" class="display table text-center" style="width:100%;">
+					        <tr class="text-center">
+					            	<th>PROFILE_PIC</th>
+									<th>CLOSET_NUM</th>
+									<th>ID</th>
+									<th>PWD</th>
+									<th>NAME</th>
+									<th>ADDRESS</th>
+									<th>DEPTNO</th>
+					        </tr>
+					        <tbody id="tbody">
+					        </tbody>
+				      	</table>
+						 -->
+					</div>
+				</div>
+			</div>
+		</div>
 	
-		
-</body>
 <script src="resource/javascript/MemberManagement.js"></script>
 <script src="resource/javascript/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+</body>
 </html>

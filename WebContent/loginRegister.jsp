@@ -15,10 +15,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-	integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhnd0JK28anvf"
-	crossorigin="anonymous" />
+<script src="https://kit.fontawesome.com/18cfffd9e0.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="resource/style/loginRegister-style.css" />
 <title>Login and Register</title>
 
@@ -31,14 +28,30 @@
 
 
 	<div class="container" id="container">
-		<div class="form-container sign-up-container">
+		<div id="sign-up-container" class="form-container sign-up-container">
 			<form action="<%= request.getContextPath()%>/signUp.my" method="post" enctype="multipart/form-data">
 			<div>
-				<div style="width: 100%;">
-					<input type="email" id="id" name="id" placeholder="email@email.com" />
-					<input type="button" id="check_btn" class="check_btn" name="check_btn" value="Check" />
-				</div>
-            <input type="password" id="pwd" name="pwd" placeholder="Password" />
+				 <div class="field">
+                        <input onkeyup="checkEmail()" type="email" id="id" name="id" autocomplete="off" placeholder="email@email.com" />
+                        <input type="button" id="check_btn" class="check_btn" name="check_btn" value="Check" />		
+                    <div class="check-icons">
+                        <span class="icon1 fas fa-exclamation"></span>
+                        <span class="icon2 fas fa-check"></span>
+                    </div>
+                    </div>
+                    <div class="error-text">
+                        Id should be valid Email address
+                    </div>
+                <div class="field">
+                <input onkeyup="checkPwd()" type="password" id="pwd" name="pwd" autocomplete="off" placeholder="Password" />
+                <div class="check-icons">
+                    <span class="icon3 fas fa-exclamation"></span>
+                    <span class="icon4 fas fa-check"></span>
+                </div>
+                </div>
+                <div class="error-text2">
+                    Password should be 4 to 12 digits of letters and numbers
+                </div>
             <input type="text" id="name" name="name" placeholder="UserName" />
             <div style="width: 100%;">
 					<input type="text" id="postcode" name="postcode" placeholder="postcode"> 
@@ -56,8 +69,8 @@
 			<form action="<%= request.getContextPath()%>/signIn.my" method="post">
 				<h1>Sign in</h1>
 
-				<input type="email" id="id" name="id" placeholder="email@email.com" /> 
-				<input type="password" id="pwd" name="pwd" placeholder="Password" />
+				<input type="email" id="userid" name="id" placeholder="email@email.com" /> 
+				<input type="password" id="userpwd" name="pwd" placeholder="Password" />
 
 				<input type="submit" id="signin_btn" name="signin_btn" value="Sign In">
 			</form>
@@ -92,8 +105,6 @@
 		
 		
 </body>
-
 <script src="resource/javascript/loginRegister.js"></script>
-<script
-	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </html>
