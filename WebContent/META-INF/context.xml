@@ -1,10 +1,11 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
     <Resource maxWait="-1" 
             maxIdle="20" 
             maxActive="100" 
             password="1004" 
-            username="simjae" 
+            username="bituser" 
             url="jdbc:oracle:thin:@localhost:1521:XE"
             driverClassName="oracle.jdbc.OracleDriver" 
             type="javax.sql.DataSource"
