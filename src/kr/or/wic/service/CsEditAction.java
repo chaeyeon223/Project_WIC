@@ -19,14 +19,18 @@ public class CsEditAction implements Action {
 		int cs_num = Integer.parseInt(request.getParameter("cs_num"));
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		int cs_notice = 0;
+		int cs_notice = 2;
 		if(request.getParameter("cs_notice") != null) {
 			cs_notice =  Integer.parseInt(request.getParameter("cs_notice"));
+		}
+		int cs_secret = 2;
+		if(request.getParameter("cs_secret") != null) {
+			cs_secret =  Integer.parseInt(request.getParameter("cs_secret"));
 		}
 		
 		System.out.println("dao 이전");
 		CustomerServiceDAO dao = new CustomerServiceDAO();
-		int result = dao.csEdit(cs_num, title, content, cs_notice);
+		int result = dao.csEdit(cs_num, title, content, cs_notice, cs_secret);
 		if(result != 0 ) {
 			System.out.println("dao 실행 완료");			
 		}

@@ -16,6 +16,8 @@ public class CsReWriteAction implements Action {
 		String id = request.getParameter("id"); 			//작성자의 아이디
 		String title = request.getParameter("title");		//답글의 제목
 		String content = request.getParameter("content");	//답글 내용
+		int cs_secret = Integer.parseInt(request.getParameter("cs_secret")); //비밀여부
+		
 		int currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		int pageSize = Integer.parseInt(request.getParameter("pageSize"));
 		
@@ -26,7 +28,7 @@ public class CsReWriteAction implements Action {
 		
 		System.out.println(cs_num);
 		CustomerServiceDAO dao = new CustomerServiceDAO();
-		boolean result = dao.csRewrite(title, content, id, cs_num, cs_refer, cs_depth, cs_step);
+		boolean result = dao.csRewrite(title, content, id, cs_num, cs_refer, cs_depth, cs_step, cs_secret);
 		
 		String msg ="";
 		String url ="";

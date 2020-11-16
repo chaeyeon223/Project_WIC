@@ -15,7 +15,7 @@ public class CustomerServiceDTO {
 	private String id;			//작성자 아이디
 	private String name;		//작성자 이름
 	private int cs_delete;		//삭제여부 -> 0:삭제X, 1:삭제O
-	private int cs_secret;		//비밀여부 -> 0:공개, 1:비공개 
+	private int cs_secret;		//비밀여부 -> 0:공개, 1:비공개
 	
 	
 	public int getCs_delete() {
