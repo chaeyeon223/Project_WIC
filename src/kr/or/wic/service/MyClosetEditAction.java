@@ -16,19 +16,14 @@ public class MyClosetEditAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		String id = (String)request.getSession().getAttribute("id");
 		String content = request.getParameter("contentedit");
+		System.out.println(id);
+		System.out.println(content);
 		
 		MemberDAO dao = new MemberDAO();
 		dao.setClosetInfo(id, content);
 		
 			
-		JSONArray contentJson = JSONArray.fromObject(content);
-		response.setContentType("application/x-json; charset=UTF-8");
-
-		try {
-			response.getWriter().print(contentJson);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 
 		return null;
 		}

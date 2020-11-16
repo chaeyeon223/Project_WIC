@@ -36,7 +36,7 @@ public class MemberController extends HttpServlet {
     	String requestURI = request.getRequestURI();
     	String contextPath = request.getContextPath();
     	String url_Command = requestURI.substring(contextPath.length());
-    	
+    	System.out.println(url_Command);
     	String viewpage="";
     	
     	Action action = null;
@@ -73,7 +73,7 @@ public class MemberController extends HttpServlet {
     	} else if (url_Command.equals("/myInfoEdit.my")) { //정보 수정하기 
     		action = new MypageMemberEditAction();	
     		forward = action.execute(request, response);
-    	} else if(url_Command.equals("myClosetEdit.my")) { //옷장소개 수정하기 ajax
+    	} else if(url_Command.equals("/myClosetEdit.my")) { //옷장소개 수정하기 ajax
     		action = new MyClosetEditAction();
     		forward = action.execute(request, response);
 		} else if (url_Command.equals("/myCart.my")) { //찜하기

@@ -385,15 +385,13 @@ public class MemberDAO {
 			
 			if(rs.next()) {
 				int closet_num = rs.getInt("closet_num");
-				sql = "update closet set closet_content where closet_num=?";
+				sql = "update closet set closet_content=? where closet_num=?";
 				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, closet_num);
-				rs = pstmt.executeQuery();
+				pstmt.setString(1, contentedit);
+				pstmt.setInt(2, closet_num);
+				result = pstmt.executeUpdate();
 				
-				if(rs.next()) {
-					result = rs.getInt(1);
-					System.out.println(result);
-				}
+				
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
