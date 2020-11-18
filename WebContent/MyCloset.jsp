@@ -60,7 +60,7 @@
 							<div class="user-state">
 								<!--  <span id = heart><i class="fa fa-heart-o" aria-hidden="true" ></i> </span> -->		
 								<c:choose>
-									<c:when test="${checkLike eq 0}">
+									<c:when test="${checkLike eq 0}"> 
 										<i id="heart" class="far fa-heart" aria-hidden="true"></i>
 									</c:when>
 									<c:otherwise>
